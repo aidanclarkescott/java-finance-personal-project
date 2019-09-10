@@ -1,20 +1,11 @@
 package ui;
 
+import java.util.Scanner;
+
 public class Main {
-
     public static void main(String[] args) {
-        printStocks();
-        printBudget();
-
-    }
-
-    public static void printStocks() {
-        System.out.println("Stocks: \nAAPL \nAMZN \netc. \n");
-
-    }
-
-    public static void printBudget () {
-        System.out.println("Budget: \nGroceries: x \nEntertainment: y \nClothes: z \netc. \n");
+        Scanner reader = new Scanner(System.in);
+        UserInterface ui = new UserInterface(reader);
     }
 }
 
