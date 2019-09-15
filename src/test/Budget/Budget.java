@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 public class Budget {
     private ArrayList<Expense> expenses;
-    private int totalExpenses;
+    private double totalExpenses;
+    private String name;
 
-    public Budget() {
+    public Budget(String name) {
         this.expenses = new ArrayList<Expense>();
+        this.name = name;
     }
 
     public void addExpense(Scanner reader) {
@@ -27,8 +29,12 @@ public class Budget {
         System.out.println("");
     }
 
-    public int getTotalExpenses() {
+    public double getTotalExpenses() {
         return this.totalExpenses;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
 }

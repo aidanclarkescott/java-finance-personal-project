@@ -2,8 +2,8 @@ package ui;
 
 import Budget.Budget;
 
-import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class UserInterface {
     private Scanner reader;
@@ -12,10 +12,10 @@ public class UserInterface {
     public UserInterface(Scanner reader) {
         this.reader = reader;
         this.budgets = new HashMap<String, Budget>();
-        menu(reader);
+        menu();
     }
 
-    public void menu(Scanner reader) {
+    public void menu() {
         System.out.println("Personal Finance Application \n");
         while (true) {
             System.out.println("Menu: \n 1. Create a new budget " +
@@ -29,25 +29,13 @@ public class UserInterface {
             if (command.equals("6")) {
                 break;
             } else if (command.equals("1")) {
-                createBudget(reader);
+                createBudget();
             } else if (command.equals("2")) {
-                System.out.print("Which budget: ");
-                String budgetName = reader.nextLine();
-                try {
-                     this.budgets.get(budgetName).addExpense(reader);
-                } catch (Exception e) {
-                    throw new NullPointerException("You haven't created a budget yet.");
-                }
+                addExpense();
             } else if (command.equals("3")) {
                 System.out.println("Stocks: \n AAPL: $150 \n GOOG: $1000 \n etc. \n");
             } else if (command.equals("4")) {
-                System.out.print("Which budget: ");
-                String budgetName = reader.nextLine();
-                try {
-                    this.budgets.get(budgetName).printExpenses();
-                } catch (Exception e) {
-                    throw new NullPointerException("You haven't created a budget yet.");
-                }
+                printExpenses();
             } else if (command.equals("5")) {
                 printBudgets();
             }
@@ -55,10 +43,32 @@ public class UserInterface {
         System.out.println("Thank you for using the application.");
     }
 
-    public void createBudget(Scanner reader) {
+    public void createBudget() {
         System.out.print("Budget name: ");
         String budgetName = reader.nextLine();
-        this.budgets.put(budgetName, new Budget());
+        this.budgets.put(budgetName, new Budget(budgetName));
+    }
+
+    public void addExpense() {
+        System.out.print("Which budget: ");
+        String budgetName = reader.nextLine();
+        System.out.println("You picked " + budgetName);
+        try {
+            this.budgets.get(budgetName).addExpense(reader);
+        } catch (Exception e) {
+            throw new NullPointerException("You haven't created a budget yet.");
+        }
+    }
+
+    public void printExpenses() {
+        System.out.print("Which budget: ");
+        String budgetName = reader.nextLine();
+        System.out.println("You picked " + budgetName);
+        try {
+            this.budgets.get(budgetName).printExpenses();
+        } catch (Exception e) {
+            throw new NullPointerException("You haven't created a budget yet.");
+        }
     }
 
     public void printBudgets() {
