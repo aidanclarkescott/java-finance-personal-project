@@ -18,14 +18,10 @@ public class UserInterface {
     public void menu() {
         System.out.println("Personal Finance Application \n");
         while (true) {
-            System.out.println("Menu: \n 1. Create a new budget " +
-                    "\n 2. Add expense to existing budget " +
-                    "\n 3. View stock portfolio " +
-                    "\n 4. Print budget expenses" +
-                    "\n 5. Print budget list" +
-                    "\n 6. Quit \n");
+            System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
+                    + "\n 3. View stock portfolio " + "\n 4. Print budget expenses"
+                    + "\n 5. Print budget list" + "\n 6. Quit \n");
             String command = reader.nextLine();
-
             if (command.equals("6")) {
                 break;
             } else if (command.equals("1")) {
