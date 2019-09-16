@@ -26,7 +26,6 @@ public class Budget {
         for (Expense expense : this.expenses) {
             System.out.println(expense);
         }
-        System.out.println("");
     }
 
     public double getTotalExpenses() {

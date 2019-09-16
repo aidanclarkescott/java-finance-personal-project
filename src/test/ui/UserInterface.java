@@ -69,6 +69,8 @@ public class UserInterface {
         } catch (Exception e) {
             throw new NullPointerException("You haven't created a budget yet.");
         }
+        System.out.println("Total: " + this.budgets.get(budgetName).getTotalExpenses());
+        System.out.println("");
     }
 
     public void printBudgets() {
