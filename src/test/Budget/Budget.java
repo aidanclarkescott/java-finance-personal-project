@@ -22,7 +22,7 @@ public class Budget {
     // EFFECTS: adds an expense to the budget with a given name and price.
     public void addExpense(String name, double price) {
         if (budgetCap - (totalExpenses + price) < 0) {
-            System.out.println("You cannot afford that item.");
+            System.out.println("You cannot afford that item. \n");
         } else {
             this.expenses.add(new Expense(name, price));
             this.totalExpenses += price;

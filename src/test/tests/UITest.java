@@ -27,6 +27,23 @@ class UITest {
     }
 
     @Test
+    public void testCreateTwoBudgets() {
+        userInterface.createBudget("Test Budget 1", 500);
+        userInterface.createBudget("Test Budget 2", 200);
+        assertTrue(userInterface.getBudgets().containsKey("Test Budget 1"));
+        assertTrue(userInterface.getBudgets().containsKey("Test Budget 2"));
+        assertEquals(2, userInterface.getBudgets().size());
+        assertEquals(500, userInterface.getBudgets().get("Test Budget 1").getBudgetCap());
+    }
+
+    @Test
+    public void testAddNoExpense() {
+        userInterface.createBudget("Test Budget", 500);
+        assertEquals(0, userInterface.getBudgets().get("Test Budget").getExpenseList().size());
+        assertEquals(0, userInterface.getBudgets().get("Test Budget").getTotalExpenses());
+    }
+
+    @Test
     public void testAddExpense() {
         userInterface.createBudget("Test Budget", 500);
         userInterface.addExpense("Test Budget", "Test Item", 100.50);
@@ -47,5 +64,14 @@ class UITest {
         assertEquals(50.55, userInterface.getBudgets().get("Test Budget").getExpenseList().
                 get(1).getPrice());
         assertEquals(2, userInterface.getBudgets().get("Test Budget").getExpenseList().size());
+    }
+
+    @Test
+    public void testAddExpenseOverBudget() {
+        userInterface.createBudget("Test Budget", 500);
+        userInterface.addExpense("Test Budget", "Test Item", 500.01);
+        assertEquals(0, userInterface.getBudgets().get("Test Budget").getExpenseList().size());
+        assertEquals(0, userInterface.getBudgets().get("Test Budget").getTotalExpenses());
+        assertEquals(500, userInterface.getBudgets().get("Test Budget").getCurrentBudget());
     }
 }

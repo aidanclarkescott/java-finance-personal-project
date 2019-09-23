@@ -52,6 +52,7 @@ public class UserInterfaceLogic {
         System.out.print("Total budget maximum per month: ");
         double budgetCap = Double.parseDouble(reader.nextLine());
         createBudget(budgetName, budgetCap);
+        System.out.println("");
     }
 
     // MODIFIES: this
