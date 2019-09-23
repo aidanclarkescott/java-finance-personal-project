@@ -52,6 +52,7 @@ class UITest {
         assertEquals(100.50, userInterface.getBudgets().get("Test Budget").getExpenseList().
                 get(0).getPrice());
         assertEquals(1, userInterface.getBudgets().get("Test Budget").getExpenseList().size());
+        assertEquals(500 - 100.50, userInterface.getBudgets().get("Test Budget").getCurrentBudget());
     }
 
     @Test
@@ -64,6 +65,19 @@ class UITest {
         assertEquals(50.55, userInterface.getBudgets().get("Test Budget").getExpenseList().
                 get(1).getPrice());
         assertEquals(2, userInterface.getBudgets().get("Test Budget").getExpenseList().size());
+        assertEquals(500 - 100.50 - 50.55, userInterface.getBudgets().get("Test Budget").getCurrentBudget());
+    }
+
+    @Test
+    public void testAddExpenseToSecondBudget() {
+        userInterface.createBudget("Test Budget 1", 500);
+        userInterface.createBudget("Test Budget 2", 200);
+        userInterface.addExpense("Test Budget 2", "Test Item", 150);
+        assertTrue(userInterface.getBudgets().get("Test Budget 2").getExpenseList().
+                get(0).getName().equals("Test Item"));
+        assertEquals(150, userInterface.getBudgets().get("Test Budget 2").getExpenseList().get(0).getPrice());
+        assertEquals(1, userInterface.getBudgets().get("Test Budget 2").getExpenseList().size());
+        assertEquals(200 - 150, userInterface.getBudgets().get("Test Budget 2").getCurrentBudget());
     }
 
     @Test
