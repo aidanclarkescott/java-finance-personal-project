@@ -17,7 +17,7 @@ class UITest {
         reader = new Scanner(System.in);
         userInterface = new UserInterfaceLogic(reader);
     }
-
+ 
     @Test
     public void testCreateBudget() {
         userInterface.createBudget("Test Budget", 500);
