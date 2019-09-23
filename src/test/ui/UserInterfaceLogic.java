@@ -121,6 +121,7 @@ public class UserInterfaceLogic {
     // EFFECTS: returns the budgets HashMap.
     public HashMap<String, Budget> getBudgets() {
         return this.budgets;
+
     }
 
 }
