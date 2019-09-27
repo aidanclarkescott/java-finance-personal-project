@@ -1,6 +1,7 @@
 package ui;
 
 import Budget.Budget;
+import Investments.*;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -8,11 +9,13 @@ import java.util.Scanner;
 public class UserInterfaceLogic {
     private Scanner reader;
     private HashMap<String, Budget> budgets;
+    private Portfolio portfolio;
 
     // EFFECTS: Creates a new ui object with a budget list and starts the program.
     public UserInterfaceLogic(Scanner reader) {
         this.reader = reader;
         this.budgets = new HashMap<String, Budget>();
+        this.portfolio = new Portfolio();
     }
 
     // EFFECTS: Prints out the main menu and option functionality.
@@ -33,7 +36,7 @@ public class UserInterfaceLogic {
                 double price = priceScanner();
                 addExpense(budgetName, name, price);
             } else if (command.equals("3")) {
-                System.out.println("Stocks: \n AAPL: $150 \n GOOG: $1000 \n etc. \n");
+                investmentMenu();
             } else if (command.equals("4")) {
                 String budgetName = whichBudgetScanner();
                 printExpenses(budgetName);
@@ -42,6 +45,30 @@ public class UserInterfaceLogic {
             }
         }
         System.out.println("Thank you for using the application.");
+    }
+
+    public void investmentMenu() {
+        System.out.println("Investment Portfolio: ");
+        while (true) {
+            System.out.println(" 1. View total holdings \n" + " 2. Print out investment summary \n" +
+                    " 3. Buy an investment \n" + " 4. Sell an investment \n" +
+                    " 5. Transfer investments/funds between accounts \n" +
+                    " 6. Return to main menu \n");
+            String command = reader.nextLine();
+            if (command.equals("6")) {
+                break;
+            } else if (command.equals("1")) {
+                System.out.println(portfolio.holdings() + "\n");
+            } else if (command.equals("2")) {
+
+            } else if (command.equals("3")) {
+
+            } else if (command.equals("4")) {
+
+            } else if (command.equals("5")) {
+
+            }
+        }
     }
 
     // MODIFIES: this
@@ -121,7 +148,8 @@ public class UserInterfaceLogic {
     // EFFECTS: returns the budgets HashMap.
     public HashMap<String, Budget> getBudgets() {
         return this.budgets;
-
     }
+
+
 
 }
