@@ -2,6 +2,7 @@ package Budget;
 
 import java.util.ArrayList;
 
+
 public class Budget {
     private ArrayList<Expense> expenses;
     private double budgetCap;
