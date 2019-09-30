@@ -1,5 +1,7 @@
 package Budget;
 
+import java.io.Serializable;
+
 public class Expense {
     private String name;
     private double price;

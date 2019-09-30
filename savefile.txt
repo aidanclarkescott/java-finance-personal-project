@@ -1,0 +1,6 @@
+Main
+500.0
+Groceries
+150.0
+Plants
+60.0

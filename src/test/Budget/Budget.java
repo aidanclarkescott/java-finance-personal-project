@@ -1,5 +1,6 @@
 package Budget;
 
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -62,6 +63,18 @@ public class Budget {
     // EFFECTS: returns the expense list.
     public ArrayList<Expense> getExpenseList() {
         return this.expenses;
+    }
+
+    public void saveExpenses() throws IOException {
+        FileWriter writer = new FileWriter("savefile.txt");
+        writer.write(this.name + "\n");
+        writer.write(this.budgetCap + "\n");
+        for (Expense expense : this.expenses) {
+            writer.write(expense.getName() + "\n");
+            String price = "" + expense.getPrice() + "\n";
+            writer.write(price);
+        }
+        writer.close();
     }
 
 }

@@ -34,4 +34,8 @@ public class Investment implements GeneralInvestment {
     public void sell() {
 
     }
+
+    public String toString() {
+        return getName() + ", Individual Value: " + getIndividualValue() + ", Your Holdings: " + holdings();
+    }
 }
