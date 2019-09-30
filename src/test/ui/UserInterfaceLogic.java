@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class UserInterfaceLogic {
     private Scanner reader;
-    private BudgetLogic budget;
+    private BudgetLogicBehaviour budget;
     private Portfolio portfolio;
 
     // EFFECTS: Creates a new ui object with a budget list and starts the program.
@@ -69,7 +69,7 @@ public class UserInterfaceLogic {
             } else if (command.equals("3")) {
                 portfolio.buyMenuInput();
             } else if (command.equals("4")) {
-
+                portfolio.sellInput();
             }
         }
     }

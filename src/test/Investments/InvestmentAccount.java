@@ -1,10 +1,12 @@
 package Investments;
 
-import java.util.Scanner;
+import java.util.HashMap;
 
 public interface InvestmentAccount {
-    public void printInvestments();
-    public void buyMoreInput();
-    public void buyMore(String investmentName, int quantity);
-    public void buy(String name, double value, int quantity);
+    void printInvestments();
+    void buyMoreInput();
+    void buyMore(String investmentName, int quantity);
+    void buy(String name, double value, int quantity);
+    void sell(String investmentName);
+    HashMap<String, Investment> getInvestments();
 }

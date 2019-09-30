@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -90,5 +91,17 @@ public class BudgetLogicTest {
         assertEquals(0, budget.getBudgets().get("Test Budget").getExpenseList().size());
         assertEquals(0, budget.getBudgets().get("Test Budget").getTotalExpenses());
         assertEquals(500, budget.getBudgets().get("Test Budget").getCurrentBudget());
+    }
+
+    @Test
+    public void testLoadOneExpense() throws IOException {
+        budget.createBudget("TestBudget", 500);
+        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        budget.getBudgets().get("TestBudget").saveExpenses();
+        BudgetLogic newBudgetLogic = new BudgetLogic(reader);
+        newBudgetLogic.load();
+        assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
+        assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget").
+                getExpenseList().get(0).getName());
     }
 }

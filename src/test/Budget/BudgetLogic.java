@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class BudgetLogic {
+public class BudgetLogic implements BudgetLogicBehaviour {
     private Scanner reader;
     private HashMap<String, Budget> budgets;
 
@@ -16,6 +16,7 @@ public class BudgetLogic {
 
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
+    @Override
     public void load() {
         try {
             File file = new File("savefile.txt");
@@ -35,6 +36,7 @@ public class BudgetLogic {
 
     // MODIFIES: this
     // EFFECTS: asks for new budget name and creates a budget with that name.
+    @Override
     public void createBudgetInput() {
         System.out.print("Budget name: ");
         String budgetName = reader.nextLine();
@@ -46,6 +48,7 @@ public class BudgetLogic {
 
     // MODIFIES: this
     // EFFECTS: creates a budget with budgetName and budgetCap.
+    @Override
     public void createBudget(String budgetName, double budgetCap) {
         this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
     }
@@ -53,6 +56,7 @@ public class BudgetLogic {
     // REQUIRES: must have created a budget already.
     // MODIFIES: this
     // EFFECTS: adds an expense to an existing budget.
+    @Override
     public void addExpense(String budgetName, String name, double price) {
         try {
             this.budgets.get(budgetName).addExpense(name, price);
@@ -62,6 +66,7 @@ public class BudgetLogic {
     }
 
     // EFFECTS: returns user given item name.
+    @Override
     public String nameScanner() {
         System.out.print("Name of item: ");
         String name = reader.nextLine();
@@ -69,6 +74,7 @@ public class BudgetLogic {
     }
 
     // EFFECTS: returns user given item price.
+    @Override
     public double priceScanner() {
         System.out.print("Price: ");
         Double price = Double.parseDouble(reader.nextLine());
@@ -77,6 +83,7 @@ public class BudgetLogic {
 
     // REQUIRES: must have created a budget already.
     // EFFECTS: prints out all expenses and total spent for a particular budget.
+    @Override
     public void printExpenses(String budgetName) {
         try {
             this.budgets.get(budgetName).printExpenses();
@@ -87,6 +94,7 @@ public class BudgetLogic {
     }
 
     // EFFECTS: prints and returns a user specified budget name.
+    @Override
     public String whichBudgetScanner() {
         System.out.print("Which budget: ");
         String budgetName = reader.nextLine();
@@ -96,6 +104,7 @@ public class BudgetLogic {
     }
 
     // EFFECTS: prints out all budgets and their total expenses.
+    @Override
     public void printBudgets() {
         int i = 0;
         for (String budgetName : this.budgets.keySet()) {
@@ -108,6 +117,7 @@ public class BudgetLogic {
     }
 
     // EFFECTS: returns the budgets HashMap.
+    @Override
     public HashMap<String, Budget> getBudgets() {
         return this.budgets;
     }
