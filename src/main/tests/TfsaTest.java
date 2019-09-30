@@ -1,20 +1,20 @@
 package tests;
 
-import Investments.TFSA;
+import investments.Tfsa;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
 
-public class TFSATest {
-    private TFSA tfsa;
+public class TfsaTest {
+    private Tfsa tfsa;
     private Scanner reader;
 
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        tfsa = new TFSA(reader);
+        tfsa = new Tfsa(reader);
     }
 
     @Test

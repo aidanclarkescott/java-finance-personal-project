@@ -1,14 +1,14 @@
-package Investments;
+package investments;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class TFSA implements GeneralInvestment, InvestmentAccount {
+public class Tfsa implements GeneralInvestment, InvestmentAccount {
     private HashMap<String, Investment> investments;
     private Scanner reader;
 
     // EFFECTS: creates a new TFSA object.
-    public TFSA(Scanner reader) {
+    public Tfsa(Scanner reader) {
         this.investments = new HashMap<>();
         this.reader = reader;
     }

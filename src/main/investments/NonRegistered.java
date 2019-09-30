@@ -1,14 +1,14 @@
-package Investments;
+package investments;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class RRSP implements GeneralInvestment, InvestmentAccount {
+public class NonRegistered implements GeneralInvestment, InvestmentAccount {
     private HashMap<String, Investment> investments;
     private Scanner reader;
 
-    // EFFECTS: creates a new RRSP object.
-    public RRSP(Scanner reader) {
+    // EFFECTS: creates a new NonRegistered object.
+    public NonRegistered(Scanner reader) {
         this.investments = new HashMap<>();
         this.reader = reader;
     }
@@ -55,7 +55,7 @@ public class RRSP implements GeneralInvestment, InvestmentAccount {
 
     // EFFECTS: prints out all the investments in the account
     public void printInvestments() {
-        System.out.println("RRSP: \n");
+        System.out.println("Non-Registered: \n");
         for (Investment investment : this.investments.values()) {
             System.out.println(investment);
         }

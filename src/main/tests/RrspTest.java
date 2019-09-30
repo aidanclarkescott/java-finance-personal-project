@@ -1,22 +1,20 @@
 package tests;
 
-import Investments.RRSP;
+import investments.Rrsp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Scanner;
 
-public class RRSPTest {
-    private RRSP rrsp;
+public class RrspTest {
+    private Rrsp rrsp;
     private Scanner reader;
 
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        rrsp = new RRSP(reader);
+        rrsp = new Rrsp(reader);
     }
 
     @Test

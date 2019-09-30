@@ -1,4 +1,4 @@
-package Investments;
+package investments;
 
 public interface GeneralInvestment {
     double holdings();

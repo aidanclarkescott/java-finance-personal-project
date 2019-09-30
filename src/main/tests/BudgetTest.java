@@ -1,14 +1,12 @@
 package tests;
 
-import Budget.*;
+import budget.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class BudgetTest {
     private Budget budget;
@@ -73,8 +71,8 @@ public class BudgetTest {
         BudgetLogic newBudgetLogic = new BudgetLogic(reader);
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
-        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget").
-                getExpenseList().get(0).getName());
+        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(0).getName());
     }
 
     @Test
@@ -86,9 +84,9 @@ public class BudgetTest {
         BudgetLogic newBudgetLogic = new BudgetLogic(reader);
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
-        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget").
-                getExpenseList().get(0).getName());
-        Assertions.assertEquals("TestExpense2", newBudgetLogic.getBudgets().get("TestBudget").
-                getExpenseList().get(1).getName());
+        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(0).getName());
+        Assertions.assertEquals("TestExpense2", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(1).getName());
     }
 }

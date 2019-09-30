@@ -1,4 +1,4 @@
-package Budget;
+package budget;
 
 import java.io.File;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
                 this.budgets.get(budgetName).addExpense(name, price);
             }
         } catch (Exception e) {
-
+            System.out.println("");
         }
     }
 
@@ -109,9 +109,9 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         int i = 0;
         for (String budgetName : this.budgets.keySet()) {
             i++;
-            System.out.println(i + ". " + budgetName + ", Total Spent: " +
-                    this.budgets.get(budgetName).getTotalExpenses() + ", Total Remaining: " +
-                    this.budgets.get(budgetName).getCurrentBudget());
+            System.out.println(i + ". " + budgetName + ", Total Spent: "
+                    + this.budgets.get(budgetName).getTotalExpenses() + ", Total Remaining: "
+                    + this.budgets.get(budgetName).getCurrentBudget());
         }
         System.out.println("");
     }

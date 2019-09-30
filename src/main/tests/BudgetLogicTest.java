@@ -1,6 +1,6 @@
 package tests;
 
-import Budget.BudgetLogic;
+import budget.BudgetLogic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BudgetLogicTest {
@@ -52,10 +50,10 @@ public class BudgetLogicTest {
     public void testAddExpense() {
         budget.createBudget("Test Budget", 500);
         budget.addExpense("Test Budget", "Test Item", 100.50);
-        Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList().
-                get(0).getName().equals("Test Item"));
-        Assertions.assertEquals(100.50, budget.getBudgets().get("Test Budget").getExpenseList().
-                get(0).getPrice());
+        Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
+                .get(0).getName().equals("Test Item"));
+        Assertions.assertEquals(100.50, budget.getBudgets().get("Test Budget").getExpenseList()
+                .get(0).getPrice());
         Assertions.assertEquals(1, budget.getBudgets().get("Test Budget").getExpenseList().size());
         Assertions.assertEquals(500 - 100.50, budget.getBudgets().get("Test Budget").getCurrentBudget());
     }
@@ -65,10 +63,10 @@ public class BudgetLogicTest {
         budget.createBudget("Test Budget", 500);
         budget.addExpense("Test Budget", "Test Item", 100.50);
         budget.addExpense("Test Budget", "Test Item 2", 50.55);
-        Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList().
-                get(1).getName().equals("Test Item 2"));
-        Assertions.assertEquals(50.55, budget.getBudgets().get("Test Budget").getExpenseList().
-                get(1).getPrice());
+        Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
+                .get(1).getName().equals("Test Item 2"));
+        Assertions.assertEquals(50.55, budget.getBudgets().get("Test Budget").getExpenseList()
+                .get(1).getPrice());
         Assertions.assertEquals(2, budget.getBudgets().get("Test Budget").getExpenseList().size());
         Assertions.assertEquals(500 - 100.50 - 50.55, budget.getBudgets().get("Test Budget").getCurrentBudget());
     }
@@ -78,8 +76,8 @@ public class BudgetLogicTest {
         budget.createBudget("Test Budget 1", 500);
         budget.createBudget("Test Budget 2", 200);
         budget.addExpense("Test Budget 2", "Test Item", 150);
-        Assertions.assertTrue(budget.getBudgets().get("Test Budget 2").getExpenseList().
-                get(0).getName().equals("Test Item"));
+        Assertions.assertTrue(budget.getBudgets().get("Test Budget 2").getExpenseList()
+                .get(0).getName().equals("Test Item"));
         Assertions.assertEquals(150, budget.getBudgets().get("Test Budget 2").getExpenseList().get(0).getPrice());
         Assertions.assertEquals(1, budget.getBudgets().get("Test Budget 2").getExpenseList().size());
         Assertions.assertEquals(200 - 150, budget.getBudgets().get("Test Budget 2").getCurrentBudget());
@@ -102,7 +100,7 @@ public class BudgetLogicTest {
         BudgetLogic newBudgetLogic = new BudgetLogic(reader);
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
-        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget").
-                getExpenseList().get(0).getName());
+        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(0).getName());
     }
 }

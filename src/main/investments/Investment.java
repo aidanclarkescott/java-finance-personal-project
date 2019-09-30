@@ -1,4 +1,4 @@
-package Investments;
+package investments;
 
 public class Investment implements GeneralInvestment {
     private String name;

@@ -1,7 +1,7 @@
 package ui;
 
-import Budget.*;
-import Investments.*;
+import budget.*;
+import investments.*;
 
 import java.io.*;
 import java.util.Scanner;
@@ -22,20 +22,20 @@ public class UserInterfaceLogic {
     // EFFECTS: Prints out the main menu and option functionality.
     public void menu() throws IOException {
         System.out.println("Personal Finance Application \n");
+        menuOptions();
+        System.out.println("Thank you for using the application.");
+        saveBudgets();
+    }
+
+    public void menuOptions() {
         while (true) {
-            System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
-                    + "\n 3. View investment portfolio " + "\n 4. Print budget expenses"
-                    + "\n 5. Print budget list" + "\n 6. Quit \n");
-            String command = reader.nextLine();
+            String command = printOptions();
             if (command.equals("6")) {
                 break;
             } else if (command.equals("1")) {
                 budget.createBudgetInput();
             } else if (command.equals("2")) {
-                String budgetName = budget.whichBudgetScanner();
-                String name = budget.nameScanner();
-                double price = budget.priceScanner();
-                budget.addExpense(budgetName, name, price);
+                budget.addExpense(budget.whichBudgetScanner(), budget.nameScanner(), budget.priceScanner());
             } else if (command.equals("3")) {
                 investmentMenu();
             } else if (command.equals("4")) {
@@ -44,11 +44,6 @@ public class UserInterfaceLogic {
             } else if (command.equals("5")) {
                 budget.printBudgets();
             }
-        }
-        System.out.println("Thank you for using the application.");
-
-        for (Budget budget : budget.getBudgets().values()) {
-            budget.saveExpenses();
         }
     }
 
@@ -71,6 +66,20 @@ public class UserInterfaceLogic {
             } else if (command.equals("4")) {
                 portfolio.sellInput();
             }
+        }
+    }
+
+    public String printOptions() {
+        System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
+                + "\n 3. View investment portfolio " + "\n 4. Print budget expenses"
+                + "\n 5. Print budget list" + "\n 6. Quit \n");
+        String command = reader.nextLine();
+        return command;
+    }
+
+    public void saveBudgets() throws IOException {
+        for (Budget budget : budget.getBudgets().values()) {
+            budget.saveExpenses();
         }
     }
 

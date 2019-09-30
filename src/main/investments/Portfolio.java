@@ -1,19 +1,19 @@
-package Investments;
+package investments;
 
 import java.util.Scanner;
 
 public class Portfolio implements GeneralInvestment {
     private NonRegistered nonRegistered;
-    private TFSA tfsa;
-    private RRSP rrsp;
+    private Tfsa tfsa;
+    private Rrsp rrsp;
     private Scanner reader;
 
     // EFFECTS: creates a new portfolio object with an instance of each investment account
     public Portfolio(Scanner reader) {
         this.reader = reader;
         this.nonRegistered = new NonRegistered(reader);
-        this.tfsa = new TFSA(reader);
-        this.rrsp = new RRSP(reader);
+        this.tfsa = new Tfsa(reader);
+        this.rrsp = new Rrsp(reader);
     }
 
     // EFFECTS: returns the total value of all the investments.
@@ -117,12 +117,12 @@ public class Portfolio implements GeneralInvestment {
     }
 
     // EFFECTS: return tfsa account.
-    public TFSA getTfsa() {
+    public Tfsa getTfsa() {
         return this.tfsa;
     }
 
     // EFFECTS: return rrsp account.
-    public RRSP getRrsp() {
+    public Rrsp getRrsp() {
         return this.rrsp;
     }
 }

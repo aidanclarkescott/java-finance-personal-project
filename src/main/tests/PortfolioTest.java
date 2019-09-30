@@ -1,6 +1,6 @@
 package tests;
 
-import Investments.*;
+import investments.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,14 +38,14 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyTFSAOneInvestment() {
+    public void testBuyTfsaOneInvestment() {
         portfolio.buy("2", "Test Investment", 50, 2);
         Assertions.assertEquals(50 * 2, portfolio.holdings());
         Assertions.assertTrue(portfolio.getTfsa().getInvestments().containsKey("Test Investment"));
     }
 
     @Test
-    public void testBuyRRSPOneInvestment() {
+    public void testBuyRrspOneInvestment() {
         portfolio.buy("3", "Test Investment", 50, 2);
         Assertions.assertEquals(50 * 2, portfolio.holdings());
         Assertions.assertTrue(portfolio.getRrsp().getInvestments().containsKey("Test Investment"));
@@ -61,7 +61,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyTFSATwoInvestments() {
+    public void testBuyTfsaTwoInvestments() {
         portfolio.buy("2", "Test Investment 1", 50, 2);
         portfolio.buy("2", "Test Investment 2", 100, 1);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
@@ -70,7 +70,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyRRSPTwoInvestments() {
+    public void testBuyRrspTwoInvestments() {
         portfolio.buy("3", "Test Investment 1", 50, 2);
         portfolio.buy("3", "Test Investment 2", 100, 1);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
@@ -87,7 +87,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellTFSA() {
+    public void testSellTfsa() {
         portfolio.buy("2", "Test Investment", 50, 2);
         portfolio.sell("2", "Test Investment");
         Assertions.assertEquals(0, portfolio.holdings());
@@ -95,7 +95,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellRRSP() {
+    public void testSellRrsp() {
         portfolio.buy("3", "Test Investment", 50, 2);
         portfolio.sell("3", "Test Investment");
         Assertions.assertEquals(0, portfolio.holdings());
