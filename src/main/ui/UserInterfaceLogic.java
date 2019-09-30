@@ -56,9 +56,9 @@ public class UserInterfaceLogic {
     public void investmentMenu() {
         System.out.println("Investment Portfolio: ");
         while (true) {
-            System.out.println(" 1. View total holdings \n" + " 2. Print out investment summary \n" +
-                    " 3. Buy an investment \n" + " 4. Sell an investment \n" +
-                    " 5. Return to main menu \n");
+            System.out.println(" 1. View total holdings \n" + " 2. Print out investment summary \n"
+                    + " 3. Buy an investment \n" + " 4. Sell an investment \n"
+                    + " 5. Return to main menu \n");
             String command = reader.nextLine();
             if (command.equals("5")) {
                 break;

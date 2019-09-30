@@ -2,6 +2,7 @@ package tests;
 
 import Budget.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,16 +17,16 @@ public class ExpenseTest {
 
     @Test
     public void testGetName() {
-        assertEquals("Test Name", expense.getName());
+        Assertions.assertEquals("Test Name", expense.getName());
     }
 
     @Test
     public void testGetPrice() {
-        assertEquals(100.50, expense.getPrice());
+        Assertions.assertEquals(100.50, expense.getPrice());
     }
 
     @Test
     public void testToString() {
-        assertEquals("Test Name 100.5", expense.toString());
+        Assertions.assertEquals("Test Name 100.5", expense.toString());
     }
 }
