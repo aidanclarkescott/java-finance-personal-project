@@ -3,7 +3,7 @@ package investments;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Rrsp implements GeneralInvestment, InvestmentAccount {
+public class Rrsp implements GeneralInvestment, InvestmentAccountBehaviour {
     private HashMap<String, Investment> investments;
     private Scanner reader;
 
