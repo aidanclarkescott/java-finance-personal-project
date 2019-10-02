@@ -13,12 +13,10 @@ import java.util.Scanner;
 public class BudgetLogicTest {
 
     private BudgetLogic budget;
-    private Scanner reader;
 
     @BeforeEach
     public void setup() throws FileNotFoundException {
-        reader = new Scanner(System.in);
-        budget = new BudgetLogic(reader);
+        budget = new BudgetLogic();
     }
 
     @Test
@@ -97,7 +95,7 @@ public class BudgetLogicTest {
         budget.createBudget("TestBudget", 500);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budget.getBudgets().get("TestBudget").saveExpenses();
-        BudgetLogic newBudgetLogic = new BudgetLogic(reader);
+        BudgetLogic newBudgetLogic = new BudgetLogic();
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")

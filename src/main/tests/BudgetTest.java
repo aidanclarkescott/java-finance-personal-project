@@ -11,13 +11,11 @@ import java.util.Scanner;
 public class BudgetTest {
     private Budget budget;
     private BudgetLogic budgetLogic;
-    private Scanner reader;
 
     @BeforeEach
     public void setup() {
-        reader = new Scanner(System.in);
         budget = new Budget("Test Name", 500);
-        budgetLogic = new BudgetLogic(reader);
+        budgetLogic = new BudgetLogic();
     }
 
     @Test
@@ -68,7 +66,7 @@ public class BudgetTest {
         budgetLogic.createBudget("TestBudget", 500);
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();
-        BudgetLogic newBudgetLogic = new BudgetLogic(reader);
+        BudgetLogic newBudgetLogic = new BudgetLogic();
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
@@ -81,7 +79,7 @@ public class BudgetTest {
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();
-        BudgetLogic newBudgetLogic = new BudgetLogic(reader);
+        BudgetLogic newBudgetLogic = new BudgetLogic();
         newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")

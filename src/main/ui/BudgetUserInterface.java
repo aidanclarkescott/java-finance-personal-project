@@ -11,7 +11,7 @@ public class BudgetUserInterface {
 
     public BudgetUserInterface(Scanner reader) {
         this.reader = reader;
-        this.budget = new BudgetLogic(reader);
+        this.budget = new BudgetLogic();
     }
 
     public void load() {
@@ -69,6 +69,7 @@ public class BudgetUserInterface {
         budget.printBudgets();
     }
 
+    // EFFECTS: saves the budgets and their expenses.
     public void saveBudgets() throws IOException {
         budget.saveBudgets();
     }

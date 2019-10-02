@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class BudgetLogic implements BudgetLogicBehaviour {
-    private Scanner reader;
     private HashMap<String, Budget> budgets;
 
     // EFFECTS: Creates a new ui object with a budget list and starts the program.
-    public BudgetLogic(Scanner reader) {
-        this.reader = reader;
+    public BudgetLogic() {
         this.budgets = new HashMap<String, Budget>();
     }
 
@@ -84,6 +82,8 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         return this.budgets;
     }
 
+    // MODIFIES: savefile.txt
+    // EFFECTS: saves the budgets and their expenses to file.
     public void saveBudgets() throws IOException {
         for (Budget budget : budgets.values()) {
             budget.saveExpenses();
