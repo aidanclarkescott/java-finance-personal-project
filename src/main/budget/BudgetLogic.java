@@ -1,6 +1,7 @@
 package budget;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -35,18 +36,6 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     }
 
     // MODIFIES: this
-    // EFFECTS: asks for new budget name and creates a budget with that name.
-    @Override
-    public void createBudgetInput() {
-        System.out.print("Budget name: ");
-        String budgetName = reader.nextLine();
-        System.out.print("Total budget maximum per month: ");
-        double budgetCap = Double.parseDouble(reader.nextLine());
-        createBudget(budgetName, budgetCap);
-        System.out.println("");
-    }
-
-    // MODIFIES: this
     // EFFECTS: creates a budget with budgetName and budgetCap.
     @Override
     public void createBudget(String budgetName, double budgetCap) {
@@ -65,22 +54,6 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         }
     }
 
-    // EFFECTS: returns user given item name.
-    @Override
-    public String nameScanner() {
-        System.out.print("Name of item: ");
-        String name = reader.nextLine();
-        return name;
-    }
-
-    // EFFECTS: returns user given item price.
-    @Override
-    public double priceScanner() {
-        System.out.print("Price: ");
-        Double price = Double.parseDouble(reader.nextLine());
-        return price;
-    }
-
     // REQUIRES: must have created a budget already.
     // EFFECTS: prints out all expenses and total spent for a particular budget.
     @Override
@@ -93,18 +66,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
 
     }
 
-    // EFFECTS: prints and returns a user specified budget name.
-    @Override
-    public String whichBudgetScanner() {
-        System.out.print("Which budget: ");
-        String budgetName = reader.nextLine();
-        System.out.println("You picked " + budgetName);
-        return budgetName;
-
-    }
-
     // EFFECTS: prints out all budgets and their total expenses.
-    @Override
     public void printBudgets() {
         int i = 0;
         for (String budgetName : this.budgets.keySet()) {
@@ -120,5 +82,11 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     @Override
     public HashMap<String, Budget> getBudgets() {
         return this.budgets;
+    }
+
+    public void saveBudgets() throws IOException {
+        for (Budget budget : budgets.values()) {
+            budget.saveExpenses();
+        }
     }
 }

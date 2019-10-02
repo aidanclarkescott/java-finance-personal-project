@@ -1,6 +1,4 @@
-Main
+TestBudget
 500.0
-Groceries
-150.0
-Plants
+TestExpense1
 50.0

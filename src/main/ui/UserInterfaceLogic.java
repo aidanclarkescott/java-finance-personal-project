@@ -8,13 +8,13 @@ import java.util.Scanner;
 
 public class UserInterfaceLogic {
     private Scanner reader;
-    private BudgetLogicBehaviour budget;
+    private BudgetUserInterface budget;
     private Portfolio portfolio;
 
     // EFFECTS: Creates a new ui object with a budget list and starts the program.
     public UserInterfaceLogic(Scanner reader) {
         this.reader = reader;
-        this.budget = new BudgetLogic(reader);
+        this.budget = new BudgetUserInterface(reader);
         this.portfolio = new Portfolio(reader);
         budget.load();
     }
@@ -24,7 +24,7 @@ public class UserInterfaceLogic {
         System.out.println("Personal Finance Application \n");
         menuOptions();
         System.out.println("Thank you for using the application.");
-        saveBudgets();
+        budget.saveBudgets();
     }
 
     public void menuOptions() {
@@ -75,12 +75,6 @@ public class UserInterfaceLogic {
                 + "\n 5. Print budget list" + "\n 6. Quit \n");
         String command = reader.nextLine();
         return command;
-    }
-
-    public void saveBudgets() throws IOException {
-        for (Budget budget : budget.getBudgets().values()) {
-            budget.saveExpenses();
-        }
     }
 
 }
