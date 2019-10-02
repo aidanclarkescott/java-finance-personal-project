@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class BudgetTest {
     private Budget budget;
@@ -16,6 +15,11 @@ public class BudgetTest {
     public void setup() {
         budget = new Budget("Test Name", 500);
         budgetLogic = new BudgetLogic();
+    }
+
+    @Test
+    public void testGetName() {
+        Assertions.assertEquals("Test Name", budget.getName());
     }
 
     @Test

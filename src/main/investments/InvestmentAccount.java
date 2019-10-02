@@ -3,7 +3,7 @@ package investments;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class InvestmentAccount implements GeneralInvestment, InvestmentAccountBehaviour {
+public abstract class InvestmentAccount implements GeneralInvestment, InvestmentAccountBehaviour {
     protected HashMap<String, Investment> investments;
     protected Scanner reader;
 
@@ -54,7 +54,6 @@ public class InvestmentAccount implements GeneralInvestment, InvestmentAccountBe
 
     // EFFECTS: prints out all the investments in the account
     public void printInvestments() {
-        System.out.println("Non-Registered: \n");
         for (Investment investment : this.investments.values()) {
             System.out.println(investment);
         }

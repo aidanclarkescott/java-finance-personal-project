@@ -1,69 +1,19 @@
 package investments;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
-public class Rrsp implements GeneralInvestment, InvestmentAccountBehaviour {
-    private HashMap<String, Investment> investments;
-    private Scanner reader;
+public class Rrsp extends InvestmentAccount {
 
-    // EFFECTS: creates a new RRSP object.
+    // EFFECTS: creates a new NonRegistered object.
     public Rrsp(Scanner reader) {
-        this.investments = new HashMap<>();
-        this.reader = reader;
-    }
-
-    // EFFECTS: returns the total value of all the investments in the account.
-    public double holdings() {
-        double sum = 0;
-        for (Investment investment : this.investments.values()) {
-            sum += investment.holdings();
-        }
-        return sum;
-    }
-
-    // EFFECTS: takes in user input for buying more of an existing investment.
-    public void buyMoreInput() {
-        printInvestments();
-        System.out.print("Which investment would you like to buy more of: ");
-        String investmentName = reader.nextLine();
-        System.out.print("How many more shares would you like to buy: ");
-        int quantity = Integer.parseInt(reader.nextLine());
-        buyMore(investmentName, quantity);
-    }
-
-    // REQUIRES: quantity cannot be negative, investmentName must already be an existing investment
-    // MODIFIES: this
-    // EFFECTS: increases the number of shares of a given investment by a given quantity.
-    public void buyMore(String investmentName, int quantity) {
-        this.investments.get(investmentName).buy(quantity);
-    }
-
-    // REQUIRES: quantity cannot be negative
-    // MODIFIES: this
-    // EFFECTS: creates a new investment and places it in the account.
-    public void buy(String name, double value, int quantity) {
-        this.investments.put(name, new Investment(name, value, quantity));
-    }
-
-    // REQUIRES: investmentName must already be an existing investment
-    // MODIFIES: this
-    // EFFECTS: removes/sells an investment from the account.
-    public void sell(String investmentName) {
-        this.investments.remove(investmentName);
+        super(reader);
     }
 
     // EFFECTS: prints out all the investments in the account
+    @Override
     public void printInvestments() {
         System.out.println("RRSP: \n");
-        for (Investment investment : this.investments.values()) {
-            System.out.println(investment);
-        }
-        System.out.println("");
+        super.printInvestments();
     }
 
-    // EFFECTS: returns the list of investments.
-    public HashMap<String, Investment> getInvestments() {
-        return this.investments;
-    }
 }
