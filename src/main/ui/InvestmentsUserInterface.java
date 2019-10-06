@@ -33,7 +33,13 @@ public class InvestmentsUserInterface {
     public void buyMoreInput() {
         System.out.println("Which investment account: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
         String account = reader.nextLine();
-        portfolio.buyMore(account);
+        printInvestments(account);
+        System.out.print("Which investment would you like to buy more of: ");
+        String investmentName = reader.nextLine();
+        System.out.print("How many more shares would you like to buy: ");
+        int quantity = Integer.parseInt(reader.nextLine());
+        portfolio.buyMore(account, investmentName, quantity);
+        System.out.println("");
     }
 
     // EFFECTS: takes in user input for buying a new investment.
@@ -62,6 +68,11 @@ public class InvestmentsUserInterface {
     // EFFECTS: returns the total value of all the investments.
     public double holdings() {
         return portfolio.holdings();
+    }
+
+    // EFFECTS: prints the investments of the given account
+    public void printInvestments(String account) {
+        portfolio.printInvestments(account);
     }
 
     // EFFECTS: prints out all the investments in all accounts.

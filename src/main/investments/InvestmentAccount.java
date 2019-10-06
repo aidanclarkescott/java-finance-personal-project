@@ -21,16 +21,6 @@ public abstract class InvestmentAccount implements GeneralInvestment, Investment
         return sum;
     }
 
-    // EFFECTS: takes in user input for buying more of an existing investment.
-    public void buyMoreInput() {
-        printInvestments();
-        System.out.print("Which investment would you like to buy more of: ");
-        String investmentName = reader.nextLine();
-        System.out.print("How many more shares would you like to buy: ");
-        int quantity = Integer.parseInt(reader.nextLine());
-        buyMore(investmentName, quantity);
-    }
-
     // REQUIRES: quantity cannot be negative, investmentName must already be an existing investment
     // MODIFIES: this
     // EFFECTS: increases the number of shares of a given investment by a given quantity.
