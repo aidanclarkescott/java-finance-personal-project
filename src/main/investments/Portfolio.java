@@ -23,7 +23,6 @@ public class Portfolio implements GeneralInvestment {
         return sum;
     }
 
-    // TODO: add tests
     // EFFECTS: calls the appropriate buy more method on different accounts based on user input.
     public void buyMore(String account, String investmentName, int quantity) {
         if (account.equals("1")) {
@@ -55,6 +54,18 @@ public class Portfolio implements GeneralInvestment {
         } else if (account.equals("3")) {
             rrsp.sell(investmentName);
         }
+    }
+
+    // EFFECTS: calculates the taxes for a given account.
+    public double calculateTaxes(String account) {
+        if (account.equals("1")) {
+            return nonRegistered.calculateTaxes();
+        } else if (account.equals("2")) {
+            return tfsa.calculateTaxes();
+        } else if (account.equals("3")) {
+            return rrsp.calculateTaxes();
+        }
+        return 0;
     }
 
     // EFFECTS: returns non registered account.

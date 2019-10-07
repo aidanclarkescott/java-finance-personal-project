@@ -50,7 +50,7 @@ public class UserInterfaceLogic {
         System.out.println("Investment Portfolio: ");
         while (true) {
             String command = printInvestmentOptions();
-            if (command.equals("5")) {
+            if (command.equals("6")) {
                 break;
             } else if (command.equals("1")) {
                 System.out.println(portfolio.holdings() + "\n");
@@ -60,6 +60,8 @@ public class UserInterfaceLogic {
                 portfolio.buyMenuInput();
             } else if (command.equals("4")) {
                 portfolio.sellInput();
+            } else if (command.equals("5")) {
+                System.out.println(portfolio.calculateTaxes());
             }
         }
     }
@@ -77,7 +79,7 @@ public class UserInterfaceLogic {
     public String printInvestmentOptions() {
         System.out.println(" 1. View total holdings \n" + " 2. Print out investment summary \n"
                 + " 3. Buy an investment \n" + " 4. Sell an investment \n"
-                + " 5. Return to main menu \n");
+                + " 5. Calculate taxes \n" + " 6. Return to main menu \n");
         String command = reader.nextLine();
         return command;
     }

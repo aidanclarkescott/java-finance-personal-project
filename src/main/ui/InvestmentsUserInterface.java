@@ -72,6 +72,13 @@ public class InvestmentsUserInterface {
         return portfolio.holdings();
     }
 
+    // EFFECTS: calculates taxes based on holdings for a given account.
+    public double calculateTaxes() {
+        System.out.println("Which investment account would you like to calculate taxes for: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
+        String account = reader.nextLine();
+        return portfolio.calculateTaxes(account);
+    }
+
     // EFFECTS: prints the investments of the given account
     public void printInvestments(String account) {
         if (account.equals("1")) {
@@ -95,9 +102,11 @@ public class InvestmentsUserInterface {
     // EFFECTS: prints out all the investments in all accounts.
     public void printInvestmentSummary() {
         printInvestments("1");
+        System.out.println("");
         printInvestments("2");
+        System.out.println("");
         printInvestments("3");
-
+        System.out.println("");
     }
 
 }

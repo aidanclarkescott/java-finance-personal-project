@@ -9,5 +9,11 @@ public class Tfsa extends InvestmentAccount {
         super(reader);
     }
 
+    // EFFECTS: returns zero as TFSA accounts don't pay taxes.
+    @Override
+    public double calculateTaxes() {
+        return 0;
+    }
+
 
 }

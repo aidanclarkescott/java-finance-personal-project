@@ -11,4 +11,6 @@ public interface InvestmentAccountBehaviour {
     void sell(String investmentName);
 
     HashMap<String, Investment> getInvestments();
+
+    double calculateTaxes();
 }

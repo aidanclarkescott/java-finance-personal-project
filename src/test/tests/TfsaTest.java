@@ -106,4 +106,16 @@ public class TfsaTest {
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(tfsa.getInvestments().containsKey("Test Investment 2"));
     }
+
+    @Test
+    public void testCalculateTaxes() {
+        tfsa.buy("Test Investment 1", 100, 5);
+        Assertions.assertEquals(0, tfsa.calculateTaxes());
+    }
+
+    @Test
+    public void testCalculateTaxesLargeSum() {
+        tfsa.buy("Test Investment 1", 50000, 5);
+        Assertions.assertEquals(0, tfsa.calculateTaxes());
+    }
 }

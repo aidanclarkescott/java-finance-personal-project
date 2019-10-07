@@ -42,6 +42,25 @@ public abstract class InvestmentAccount implements GeneralInvestment, Investment
         this.investments.remove(investmentName);
     }
 
+    // EFFECTS: calculates taxes based on holdings
+    public double calculateTaxes() {
+        if (holdings() > 0 && holdings() < 46605) {
+            return holdings() * 0.15;
+        } else if (holdings() > 46605 && holdings() < 93208) {
+            double aboveFirst = holdings() - 46605;
+            return (46605 * 0.15) + (aboveFirst * 0.205);
+        } else if (holdings() > 93208 && holdings() < 144498) {
+            double aboveSecond = holdings() - 93208;
+            return (46605 * 0.15) + (46603 * 0.205) + (aboveSecond * 0.26);
+        } else if (holdings() > 144498 && holdings() < 205842) {
+            double aboveThird = holdings() - 144498;
+            return (46605 * 0.15) + (46603 * 0.205) + (51290 * 0.26) + (aboveThird * 0.29);
+        } else if (holdings() > 205842) {
+            double aboveFourth = holdings() - 205842;
+            return (46605 * 0.15) + (46603 * 0.205) + (61344 * 0.26) + (61344 * 0.29) + (aboveFourth * 0.33);
+        }
+        return 0;
+    }
 
     // EFFECTS: returns the list of investments.
     public HashMap<String, Investment> getInvestments() {

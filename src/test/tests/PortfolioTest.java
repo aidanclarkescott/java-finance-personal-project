@@ -128,4 +128,28 @@ public class PortfolioTest {
         Assertions.assertEquals(100 + 100, portfolio.holdings());
         Assertions.assertEquals(4, portfolio.getRrsp().getInvestments().get("Test Investment").getQuantity());
     }
+
+    @Test
+    public void testCalculateTaxesWrongInput() {
+        portfolio.buy("1", "Test Investment", 50, 2);
+        Assertions.assertEquals(0, portfolio.calculateTaxes("5"));
+    }
+
+    @Test
+    public void testCalculateTaxesNonRegistered() {
+        portfolio.buy("1", "Test Investment", 50, 2);
+        Assertions.assertEquals(portfolio.getNonRegistered().holdings() * 0.15, portfolio.calculateTaxes("1"));
+    }
+
+    @Test
+    public void testCalculateTaxesTfsa() {
+        portfolio.buy("2", "Test Investment", 50, 2);
+        Assertions.assertEquals(0, portfolio.calculateTaxes("2"));
+    }
+
+    @Test
+    public void testCalculateTaxesRrsp() {
+        portfolio.buy("3", "Test Investment", 50, 2);
+        Assertions.assertEquals(portfolio.getRrsp().holdings() * 0.15, portfolio.calculateTaxes("3"));
+    }
 }

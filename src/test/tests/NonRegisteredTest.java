@@ -107,4 +107,40 @@ public class NonRegisteredTest {
         Assertions.assertFalse(nonRegistered.getInvestments().containsKey("Test Investment 2"));
     }
 
+    @Test
+    public void testCalculateTaxesNegativeHoldings() {
+        nonRegistered.buy("Test Investment 1", -1, 5);
+        Assertions.assertEquals(0, nonRegistered.calculateTaxes());
+
+    }
+    @Test
+    public void testCalculateTaxesUnderOne() {
+        nonRegistered.buy("Test Investment 1", 1000, 5);
+        Assertions.assertEquals(5000 * 0.15, nonRegistered.calculateTaxes());
+    }
+
+    @Test
+    public void testCalculateTaxesUnderTwo() {
+        nonRegistered.buy("Test Investment 1", 10000, 7);
+        Assertions.assertEquals(11786.724999999999, nonRegistered.calculateTaxes());
+    }
+
+    @Test
+    public void testCalculateTaxesUnderThree() {
+        nonRegistered.buy("Test Investment 1", 10000, 10);
+        Assertions.assertEquals(18310.284999999996, nonRegistered.calculateTaxes());
+    }
+
+    @Test
+    public void testCalculateTaxesUnderFour() {
+        nonRegistered.buy("Test Investment 1", 10000, 15);
+        Assertions.assertEquals(31475.345, nonRegistered.calculateTaxes());
+    }
+
+    @Test
+    public void testCalculateTaxesOverFour() {
+        nonRegistered.buy("Test Investment 1", 10000, 30);
+        Assertions.assertEquals(81355.705, nonRegistered.calculateTaxes());
+    }
+
 }
