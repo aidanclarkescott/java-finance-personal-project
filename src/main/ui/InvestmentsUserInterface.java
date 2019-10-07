@@ -74,7 +74,8 @@ public class InvestmentsUserInterface {
 
     // EFFECTS: calculates taxes based on holdings for a given account.
     public double calculateTaxes() {
-        System.out.println("Which investment account would you like to calculate taxes for: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
+        System.out.println("Which investment account would you like to calculate taxes for: "
+                + "1. Non-Registered, 2. TFSA, 3. RRSP: ");
         String account = reader.nextLine();
         return portfolio.calculateTaxes(account);
     }
