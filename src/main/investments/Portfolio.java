@@ -57,24 +57,6 @@ public class Portfolio implements GeneralInvestment {
         }
     }
 
-    // EFFECTS: prints the investments of the given account
-    public void printInvestments(String account) {
-        if (account.equals("1")) {
-            nonRegistered.printInvestments();
-        } else if (account.equals("2")) {
-            tfsa.printInvestments();
-        } else if (account.equals("3")) {
-            rrsp.printInvestments();
-        }
-    }
-
-    // EFFECTS: prints out all the investments in all accounts.
-    public void printInvestmentSummary() {
-        nonRegistered.printInvestments();
-        tfsa.printInvestments();
-        rrsp.printInvestments();
-    }
-
     // EFFECTS: returns non registered account.
     public InvestmentAccount getNonRegistered() {
         return this.nonRegistered;

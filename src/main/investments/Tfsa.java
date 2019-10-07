@@ -9,11 +9,5 @@ public class Tfsa extends InvestmentAccount {
         super(reader);
     }
 
-    // EFFECTS: prints out all the investments in the account
-    @Override
-    public void printInvestments() {
-        System.out.println("TFSA: \n");
-        super.printInvestments();
-    }
 
 }

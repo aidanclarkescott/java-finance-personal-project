@@ -42,13 +42,6 @@ public abstract class InvestmentAccount implements GeneralInvestment, Investment
         this.investments.remove(investmentName);
     }
 
-    // EFFECTS: prints out all the investments in the account
-    public void printInvestments() {
-        for (Investment investment : this.investments.values()) {
-            System.out.println(investment);
-        }
-        System.out.println("");
-    }
 
     // EFFECTS: returns the list of investments.
     public HashMap<String, Investment> getInvestments() {

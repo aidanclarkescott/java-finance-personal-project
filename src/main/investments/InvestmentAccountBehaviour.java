@@ -3,7 +3,6 @@ package investments;
 import java.util.HashMap;
 
 public interface InvestmentAccountBehaviour {
-    void printInvestments();
 
     void buyMore(String investmentName, int quantity);
 

@@ -101,4 +101,31 @@ public class PortfolioTest {
         Assertions.assertEquals(0, portfolio.holdings());
         Assertions.assertFalse(portfolio.getRrsp().getInvestments().containsKey("Test Investment"));
     }
+
+    @Test
+    public void testBuyMoreNonRegistered() {
+        portfolio.buy("1", "Test Investment", 50, 2);
+        Assertions.assertEquals(100, portfolio.holdings());
+        portfolio.buyMore("1", "Test Investment", 2);
+        Assertions.assertEquals(100 + 100, portfolio.holdings());
+        Assertions.assertEquals(4, portfolio.getNonRegistered().getInvestments().get("Test Investment").getQuantity());
+    }
+
+    @Test
+    public void testBuyMoreTfsa() {
+        portfolio.buy("2", "Test Investment", 50, 2);
+        Assertions.assertEquals(100, portfolio.holdings());
+        portfolio.buyMore("2", "Test Investment", 2);
+        Assertions.assertEquals(100 + 100, portfolio.holdings());
+        Assertions.assertEquals(4, portfolio.getTfsa().getInvestments().get("Test Investment").getQuantity());
+    }
+
+    @Test
+    public void testBuyMoreRrsp() {
+        portfolio.buy("3", "Test Investment", 50, 2);
+        Assertions.assertEquals(100, portfolio.holdings());
+        portfolio.buyMore("3", "Test Investment", 2);
+        Assertions.assertEquals(100 + 100, portfolio.holdings());
+        Assertions.assertEquals(4, portfolio.getRrsp().getInvestments().get("Test Investment").getQuantity());
+    }
 }

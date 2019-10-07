@@ -1,5 +1,6 @@
 package ui;
 
+import investments.Investment;
 import investments.Portfolio;
 
 import java.util.Scanner;
@@ -34,6 +35,7 @@ public class InvestmentsUserInterface {
         System.out.println("Which investment account: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
         String account = reader.nextLine();
         printInvestments(account);
+        System.out.println("");
         System.out.print("Which investment would you like to buy more of: ");
         String investmentName = reader.nextLine();
         System.out.print("How many more shares would you like to buy: ");
@@ -72,12 +74,30 @@ public class InvestmentsUserInterface {
 
     // EFFECTS: prints the investments of the given account
     public void printInvestments(String account) {
-        portfolio.printInvestments(account);
+        if (account.equals("1")) {
+            System.out.println("Non-Registered: \n");
+            for (Investment investment : portfolio.getNonRegistered().getInvestments().values()) {
+                System.out.println(investment);
+            }
+        } else if (account.equals("2")) {
+            System.out.println("TFSA: \n");
+            for (Investment investment : portfolio.getTfsa().getInvestments().values()) {
+                System.out.println(investment);
+            }
+        } else if (account.equals("3")) {
+            System.out.println("RRSP: \n");
+            for (Investment investment : portfolio.getRrsp().getInvestments().values()) {
+                System.out.println(investment);
+            }
+        }
     }
 
     // EFFECTS: prints out all the investments in all accounts.
     public void printInvestmentSummary() {
-        portfolio.printInvestmentSummary();
+        printInvestments("1");
+        printInvestments("2");
+        printInvestments("3");
+
     }
 
 }
