@@ -13,6 +13,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         this.budgets = new HashMap<String, Budget>();
     }
 
+    // TODO: add tests for exception
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
@@ -40,40 +41,13 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
     }
 
+    // TODO: add tests for exception, or also move try catch loop to where method is called
     // REQUIRES: must have created a budget already.
     // MODIFIES: this
     // EFFECTS: adds an expense to an existing budget.
     @Override
     public void addExpense(String budgetName, String name, double price) {
-        try {
-            this.budgets.get(budgetName).addExpense(name, price);
-        } catch (Exception e) {
-            throw new NullPointerException("You haven't created a budget yet.");
-        }
-    }
-
-    // REQUIRES: must have created a budget already.
-    // EFFECTS: prints out all expenses and total spent for a particular budget.
-    @Override
-    public void printExpenses(String budgetName) {
-        try {
-            this.budgets.get(budgetName).printExpenses();
-        } catch (Exception e) {
-            throw new NullPointerException("You haven't created a budget yet.");
-        }
-
-    }
-
-    // EFFECTS: prints out all budgets and their total expenses.
-    public void printBudgets() {
-        int i = 0;
-        for (String budgetName : this.budgets.keySet()) {
-            i++;
-            System.out.println(i + ". " + budgetName + ", Total Spent: "
-                    + this.budgets.get(budgetName).getTotalExpenses() + ", Total Remaining: "
-                    + this.budgets.get(budgetName).getCurrentBudget());
-        }
-        System.out.println("");
+        this.budgets.get(budgetName).addExpense(name, price);
     }
 
     // EFFECTS: returns the budgets HashMap.
@@ -82,6 +56,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         return this.budgets;
     }
 
+    // TODO: add tests
     // MODIFIES: savefile.txt
     // EFFECTS: saves the budgets and their expenses to file.
     public void saveBudgets() throws IOException {

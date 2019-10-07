@@ -10,10 +10,6 @@ public interface BudgetLogicBehaviour {
 
     void addExpense(String budgetName, String name, double price);
 
-    void printExpenses(String budgetName);
-
-    void printBudgets();
-
     void saveBudgets() throws IOException;
 
     HashMap<String, Budget> getBudgets();

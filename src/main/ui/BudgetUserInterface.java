@@ -55,18 +55,40 @@ public class BudgetUserInterface {
     // MODIFIES: budget
     // EFFECTS: adds an expense to an existing budget.
     public void addExpense(String budgetName, String name, double price) {
-        budget.addExpense(budgetName, name, price);
+        try {
+            budget.addExpense(budgetName, name, price);
+        } catch (Exception e) {
+            System.out.println("You haven't created a budget yet.");
+        }
     }
 
-    // REQUIRES: must have created a budget already.
     // EFFECTS: prints out all expenses and total spent for a particular budget.
     public void printExpenses(String budgetName) {
-        budget.printExpenses(budgetName);
+        try {
+            for (Expense expense : this.budget.getBudgets().get(budgetName).getExpenseList()) {
+                System.out.println(expense);
+            }
+            System.out.println("");
+            System.out.println("Amount remaining in your budget: " + this.budget.getBudgets().get(budgetName)
+                    .getCurrentBudget());
+            System.out.println("Total spent: " + this.budget.getBudgets().get(budgetName)
+                    .getTotalExpenses());
+            System.out.println("");
+        } catch (Exception e) {
+            System.out.println("You haven't created a budget yet.");
+        }
     }
 
     // EFFECTS: prints out all budgets and their total expenses.
     public void printBudgets() {
-        budget.printBudgets();
+        int i = 0;
+        for (String budgetName : this.budget.getBudgets().keySet()) {
+            i++;
+            System.out.println(i + ". " + budgetName + ", Total Spent: "
+                    + this.budget.getBudgets().get(budgetName).getTotalExpenses() + ", Total Remaining: "
+                    + this.budget.getBudgets().get(budgetName).getCurrentBudget());
+        }
+        System.out.println("");
     }
 
     // EFFECTS: saves the budgets and their expenses.

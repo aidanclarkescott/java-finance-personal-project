@@ -91,6 +91,33 @@ public class BudgetLogicTest {
     }
 
     @Test
+    public void testSaveBudgetsOneExpense() throws IOException {
+        budget.createBudget("TestBudget", 500);
+        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        budget.saveBudgets();
+        BudgetLogic newBudgetLogic = new BudgetLogic();
+        newBudgetLogic.load();
+        Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
+        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(0).getName());
+    }
+
+    @Test
+    public void testSaveBudgetsTwoExpenses() throws IOException {
+        budget.createBudget("TestBudget", 500);
+        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        budget.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
+        budget.saveBudgets();
+        BudgetLogic newBudgetLogic = new BudgetLogic();
+        newBudgetLogic.load();
+        Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
+        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(0).getName());
+        Assertions.assertEquals("TestExpense2", newBudgetLogic.getBudgets().get("TestBudget")
+                .getExpenseList().get(1).getName());
+    }
+
+    @Test
     public void testLoadOneExpense() throws IOException {
         budget.createBudget("TestBudget", 500);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);

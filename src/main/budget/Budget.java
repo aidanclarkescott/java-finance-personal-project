@@ -29,17 +29,6 @@ public class Budget {
         }
     }
 
-    // EFFECTS: prints out all the expenses in the budget.
-    public void printExpenses() {
-        for (Expense expense : this.expenses) {
-            System.out.println(expense);
-        }
-        System.out.println("");
-        System.out.println("Amount remaining in your budget: " + getCurrentBudget());
-        System.out.println("Total spent: " + getTotalExpenses());
-        System.out.println("");
-    }
-
     // EFFECTS: returns the total cost of all the expenses in the budget.
     public double getTotalExpenses() {
         return this.totalExpenses;

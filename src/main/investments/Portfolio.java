@@ -23,6 +23,7 @@ public class Portfolio implements GeneralInvestment {
         return sum;
     }
 
+    // TODO: add tests
     // EFFECTS: calls the appropriate buy more method on different accounts based on user input.
     public void buyMore(String account, String investmentName, int quantity) {
         if (account.equals("1")) {
