@@ -1,13 +1,16 @@
 package tests;
 
 import budget.BudgetLogic;
+import budget.NoBudgetException;
+import budget.TooExpensiveException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 public class BudgetLogicTest {
@@ -45,9 +48,15 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testAddExpense() {
+    public void testAddExpenseExpectNoExceptions() {
         budget.createBudget("Test Budget", 500);
-        budget.addExpense("Test Budget", "Test Item", 100.50);
+        try {
+            budget.addExpense("Test Budget", "Test Item", 100.50);
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (TooExpensiveException e) {
+            fail();
+        }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
                 .get(0).getName().equals("Test Item"));
         Assertions.assertEquals(100.50, budget.getBudgets().get("Test Budget").getExpenseList()
@@ -57,10 +66,16 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testAddTwoExpenses() {
+    public void testAddTwoExpensesExpectNoExceptions() {
         budget.createBudget("Test Budget", 500);
-        budget.addExpense("Test Budget", "Test Item", 100.50);
-        budget.addExpense("Test Budget", "Test Item 2", 50.55);
+        try {
+            budget.addExpense("Test Budget", "Test Item", 100.50);
+            budget.addExpense("Test Budget", "Test Item 2", 50.55);
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (TooExpensiveException e) {
+            fail();
+        }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
                 .get(1).getName().equals("Test Item 2"));
         Assertions.assertEquals(50.55, budget.getBudgets().get("Test Budget").getExpenseList()
@@ -70,10 +85,16 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testAddExpenseToSecondBudget() {
+    public void testAddExpenseToSecondBudgetExpectNoExceptions() {
         budget.createBudget("Test Budget 1", 500);
         budget.createBudget("Test Budget 2", 200);
-        budget.addExpense("Test Budget 2", "Test Item", 150);
+        try {
+            budget.addExpense("Test Budget 2", "Test Item", 150);
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (TooExpensiveException e) {
+            fail();
+        }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget 2").getExpenseList()
                 .get(0).getName().equals("Test Item"));
         Assertions.assertEquals(150, budget.getBudgets().get("Test Budget 2").getExpenseList().get(0).getPrice());
@@ -82,34 +103,69 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testAddExpenseOverBudget() {
+    public void testAddExpenseOverBudgetExpectTooExpensiveException() {
         budget.createBudget("Test Budget", 500);
-        budget.addExpense("Test Budget", "Test Item", 500.01);
+        try {
+            budget.addExpense("Test Budget", "Test Item", 500.01);
+            fail();
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (TooExpensiveException e) {
+
+        }
         Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getExpenseList().size());
         Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getTotalExpenses());
         Assertions.assertEquals(500, budget.getBudgets().get("Test Budget").getCurrentBudget());
     }
 
     @Test
-    public void testSaveBudgetsOneExpense() throws IOException {
+    public void testAddExpenseExpectNoBudgetException() {
+        try {
+            budget.addExpense("Test Budget", "Test Item", 50);
+            fail();
+        } catch (NoBudgetException e) {
+
+        } catch (TooExpensiveException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testSaveBudgetsOneExpense() throws TooExpensiveException {
         budget.createBudget("TestBudget", 500);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
-        budget.saveBudgets();
+        try {
+            budget.saveBudgets();
+        } catch (IOException e) {
+            fail();
+        }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        try {
+            newBudgetLogic.load();
+        } catch (IOException e) {
+            fail();
+        }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
     }
 
     @Test
-    public void testSaveBudgetsTwoExpenses() throws IOException {
+    public void testSaveBudgetsTwoExpenses() throws TooExpensiveException {
         budget.createBudget("TestBudget", 500);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
-        budget.saveBudgets();
+        try {
+            budget.saveBudgets();
+        } catch (IOException e) {
+            fail();
+        }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        try {
+            newBudgetLogic.load();
+        } catch (IOException e) {
+            fail();
+        }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -118,12 +174,20 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testLoadOneExpense() throws IOException {
+    public void testLoadOneExpense() throws TooExpensiveException {
         budget.createBudget("TestBudget", 500);
         budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
-        budget.getBudgets().get("TestBudget").saveExpenses();
+        try {
+            budget.getBudgets().get("TestBudget").saveExpenses();
+        } catch (IOException e) {
+            fail();
+        }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        try {
+            newBudgetLogic.load();
+        } catch (IOException e) {
+            fail();
+        }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());

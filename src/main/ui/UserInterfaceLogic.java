@@ -1,5 +1,7 @@
 package ui;
 
+import budget.NoBudgetException;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class UserInterfaceLogic {
     }
 
     // EFFECTS: Prints out the main menu and option functionality.
-    public void menu() throws IOException {
+    public void menu() {
         System.out.println("Personal Finance Application \n");
         menuOptions();
         System.out.println("Thank you for using the application.");
@@ -25,7 +27,7 @@ public class UserInterfaceLogic {
     }
 
     // EFFECTS: calls appropriate methods based on user input.
-    public void menuOptions() {
+    private void menuOptions() {
         while (true) {
             String command = printOptions();
             if (command.equals("6")) {
@@ -37,8 +39,7 @@ public class UserInterfaceLogic {
             } else if (command.equals("3")) {
                 investmentMenu();
             } else if (command.equals("4")) {
-                String budgetName = budget.whichBudgetScanner();
-                budget.printExpenses(budgetName);
+                printExpenses();
             } else if (command.equals("5")) {
                 budget.printBudgets();
             }
@@ -46,7 +47,7 @@ public class UserInterfaceLogic {
     }
 
     // EFFECTS: Prints out the investment menu and investment options/functionality.
-    public void investmentMenu() {
+    private void investmentMenu() {
         System.out.println("Investment Portfolio: ");
         while (true) {
             String command = printInvestmentOptions();
@@ -67,7 +68,7 @@ public class UserInterfaceLogic {
     }
 
     // EFFECTS: prints out all the main menu options and takes in user input.
-    public String printOptions() {
+    private String printOptions() {
         System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
                 + "\n 3. View investment portfolio " + "\n 4. Print budget expenses"
                 + "\n 5. Print budget list" + "\n 6. Quit \n");
@@ -76,12 +77,23 @@ public class UserInterfaceLogic {
     }
 
     // EFFECTS: prints out all the investment menu options and takes in user input.
-    public String printInvestmentOptions() {
+    private String printInvestmentOptions() {
         System.out.println(" 1. View total holdings \n" + " 2. Print out investment summary \n"
                 + " 3. Buy an investment \n" + " 4. Sell an investment \n"
                 + " 5. Calculate taxes \n" + " 6. Return to main menu \n");
         String command = reader.nextLine();
         return command;
+    }
+
+    private void printExpenses() {
+        String budgetName = budget.whichBudgetScanner();
+        try {
+            budget.printExpenses(budgetName);
+        } catch (NoBudgetException e) {
+            System.out.println("You haven't created a budget yet.");
+        } finally {
+            System.out.println("");
+        }
     }
 
 }

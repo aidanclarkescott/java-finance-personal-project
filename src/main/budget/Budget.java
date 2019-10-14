@@ -20,13 +20,12 @@ public class Budget {
 
     // MODIFIES: this
     // EFFECTS: adds an expense to the budget with a given name and price.
-    public void addExpense(String name, double price) {
-        if (budgetCap - (totalExpenses + price) < 0) {
-            System.out.println("You cannot afford that item. \n");
-        } else {
-            this.expenses.add(new Expense(name, price));
-            this.totalExpenses += price;
+    public void addExpense(String name, double price) throws TooExpensiveException {
+        if ((totalExpenses + price) > budgetCap) {
+            throw new TooExpensiveException();
         }
+        this.expenses.add(new Expense(name, price));
+        this.totalExpenses += price;
     }
 
     // EFFECTS: returns the total cost of all the expenses in the budget.
@@ -56,7 +55,7 @@ public class Budget {
 
     // EFFECTS: saves the name and budget cap of a budget to file along with all of its expenses.
     public void saveExpenses() throws IOException {
-        FileWriter writer = new FileWriter("savefile.txt");
+        FileWriter writer = new FileWriter("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
         writer.write(this.name + "\n");
         writer.write(this.budgetCap + "\n");
         for (Expense expense : this.expenses) {

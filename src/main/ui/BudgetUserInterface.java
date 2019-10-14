@@ -15,7 +15,13 @@ public class BudgetUserInterface {
     }
 
     public void load() {
-        budget.load();
+        try {
+            budget.load();
+        } catch (IOException e) {
+            System.out.println("");
+        } catch (TooExpensiveException e) {
+            System.out.println("The saved items are too expensive for the budget, so nothing was loaded.");
+        }
     }
 
     // MODIFIES: this
@@ -39,8 +45,7 @@ public class BudgetUserInterface {
     // EFFECTS: returns user given item price.
     public double priceScanner() {
         System.out.print("Price: ");
-        Double price = Double.parseDouble(reader.nextLine());
-        return price;
+        return Double.parseDouble(reader.nextLine());
     }
 
     // EFFECTS: prints and returns a user specified budget name.
@@ -57,26 +62,28 @@ public class BudgetUserInterface {
     public void addExpense(String budgetName, String name, double price) {
         try {
             budget.addExpense(budgetName, name, price);
-        } catch (Exception e) {
+        } catch (NoBudgetException e) {
             System.out.println("You haven't created a budget yet.");
+        } catch (TooExpensiveException e) {
+            System.out.println("You cannot afford that item. \n");
         }
     }
 
     // EFFECTS: prints out all expenses and total spent for a particular budget.
-    public void printExpenses(String budgetName) {
-        try {
-            for (Expense expense : this.budget.getBudgets().get(budgetName).getExpenseList()) {
-                System.out.println(expense);
-            }
-            System.out.println("");
-            System.out.println("Amount remaining in your budget: " + this.budget.getBudgets().get(budgetName)
-                    .getCurrentBudget());
-            System.out.println("Total spent: " + this.budget.getBudgets().get(budgetName)
-                    .getTotalExpenses());
-            System.out.println("");
-        } catch (Exception e) {
-            System.out.println("You haven't created a budget yet.");
+    public void printExpenses(String budgetName) throws NoBudgetException {
+        if (this.budget.getBudgets().get(budgetName) == null) {
+            throw new NoBudgetException();
         }
+
+        for (Expense expense : this.budget.getBudgets().get(budgetName).getExpenseList()) {
+            System.out.println(expense);
+        }
+        System.out.println("");
+        System.out.println("Amount remaining in your budget: " + this.budget.getBudgets().get(budgetName)
+                .getCurrentBudget());
+        System.out.println("Total spent: " + this.budget.getBudgets().get(budgetName)
+                .getTotalExpenses());
+
     }
 
     // EFFECTS: prints out all budgets and their total expenses.
@@ -92,8 +99,12 @@ public class BudgetUserInterface {
     }
 
     // EFFECTS: saves the budgets and their expenses.
-    public void saveBudgets() throws IOException {
-        budget.saveBudgets();
+    public void saveBudgets() {
+        try {
+            budget.saveBudgets();
+        } catch (IOException e) {
+            System.out.println("No file was found to save to!");
+        }
     }
 
 }
