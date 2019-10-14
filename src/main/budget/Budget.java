@@ -1,5 +1,7 @@
 package budget;
 
+import ui.TooExpensiveException;
+
 import java.io.*;
 import java.util.ArrayList;
 

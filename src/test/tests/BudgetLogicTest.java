@@ -1,8 +1,8 @@
 package tests;
 
 import budget.BudgetLogic;
-import budget.NoBudgetException;
-import budget.TooExpensiveException;
+import ui.NoBudgetException;
+import ui.TooExpensiveException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

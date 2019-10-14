@@ -4,6 +4,7 @@ import budget.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.TooExpensiveException;
 
 import static org.junit.jupiter.api.Assertions.fail;
 

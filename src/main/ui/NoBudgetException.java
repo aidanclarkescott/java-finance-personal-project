@@ -1,4 +1,4 @@
-package budget;
+package ui;
 
 public class NoBudgetException extends Exception {
 }

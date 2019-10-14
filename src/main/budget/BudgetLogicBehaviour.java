@@ -1,5 +1,8 @@
 package budget;
 
+import ui.NoBudgetException;
+import ui.TooExpensiveException;
+
 import java.io.IOException;
 import java.util.HashMap;
 
