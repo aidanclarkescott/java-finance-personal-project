@@ -1,5 +1,7 @@
 package ui;
 
+import budget.NoBudgetException;
+
 import java.util.Scanner;
 
 public class UserInterfaceLogic {
