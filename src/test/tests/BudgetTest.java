@@ -139,7 +139,7 @@ public class BudgetTest {
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -156,7 +156,7 @@ public class BudgetTest {
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());

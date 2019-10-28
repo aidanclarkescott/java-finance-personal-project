@@ -16,7 +16,13 @@ public class BudgetUserInterface {
     }
 
     public void load() {
-        budget.load();
+        try {
+            budget.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
+        } catch (IOException e) {
+            System.out.println("File not found!");
+        } catch (TooExpensiveException e) {
+            System.out.println("Item too expensive for budget!");
+        }
     }
 
     // MODIFIES: this

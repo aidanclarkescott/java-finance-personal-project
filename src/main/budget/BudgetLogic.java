@@ -17,21 +17,18 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
-    public void load() {
-        try {
-            File file = new File("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
-            Scanner fileReader = new Scanner(file);
-            String budgetName = fileReader.nextLine();
-            double budgetCap = Double.parseDouble(fileReader.nextLine());
-            this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
-            while (fileReader.hasNextLine()) {
-                String name = fileReader.nextLine();
-                double price = Double.parseDouble(fileReader.nextLine());
-                this.budgets.get(budgetName).addExpense(name, price);
-            }
-        } catch (Exception e) {
-            System.out.println("");
+    public String load(String fileName) throws IOException, TooExpensiveException {
+        File file = new File(fileName);
+        Scanner fileReader = new Scanner(file);
+        String budgetName = fileReader.nextLine();
+        double budgetCap = Double.parseDouble(fileReader.nextLine());
+        this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
+        while (fileReader.hasNextLine()) {
+            String name = fileReader.nextLine();
+            double price = Double.parseDouble(fileReader.nextLine());
+            this.budgets.get(budgetName).addExpense(name, price);
         }
+        return "File found.";
     }
 
     // MODIFIES: this

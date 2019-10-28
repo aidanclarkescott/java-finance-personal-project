@@ -203,7 +203,11 @@ public class BudgetLogicTest {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        try {
+            Assertions.assertEquals("File found.", newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt"));
+        } catch (IOException e) {
+            fail();
+        }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -224,7 +228,11 @@ public class BudgetLogicTest {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
+        try {
+            Assertions.assertEquals("File found.", newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt"));
+        } catch (IOException e) {
+            fail();
+        }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -233,22 +241,29 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testLoadOneExpense() throws TooExpensiveException {
+    public void testLoadOneExpenseExpectFail() throws TooExpensiveException{
         try {
             budget.createBudget("TestBudget", 500);
         } catch (DuplicateBudgetException e) {
             fail();
         }
-        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        try {
+            budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        } catch (TooExpensiveException e) {
+            fail();
+        }
         try {
             budget.getBudgets().get("TestBudget").saveExpenses();
         } catch (IOException e) {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        newBudgetLogic.load();
-        Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
-        Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
-                .getExpenseList().get(0).getName());
+        try {
+            newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/missingfile.txt");
+        } catch (IOException e) {
+
+        }
+        Assertions.assertEquals(0, newBudgetLogic.getBudgets().size());
     }
 }
+

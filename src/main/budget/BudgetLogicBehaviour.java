@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public interface BudgetLogicBehaviour {
-    void load();
+    String load(String fileName) throws IOException, TooExpensiveException;
 
     void createBudget(String budgetName, double budgetCap) throws DuplicateBudgetException;
 
