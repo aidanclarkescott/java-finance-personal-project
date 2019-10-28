@@ -121,6 +121,15 @@ public class BudgetTest {
     }
 
     @Test
+    public void testRemoveExpense() {
+        Expense expense = new Expense("Test", 50);
+        budget.addExpenseSimple(expense);
+        Assertions.assertEquals(1, budget.getExpenseList().size());
+        budget.removeExpense(expense);
+        Assertions.assertEquals(0, budget.getExpenseList().size());
+    }
+
+    @Test
     public void testSaveExpensesOneExpense() throws IOException, TooExpensiveException {
         try {
             budgetLogic.createBudget("TestBudget", 500);

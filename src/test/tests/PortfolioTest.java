@@ -99,7 +99,7 @@ public class PortfolioTest {
         portfolio.buy("3", "Test Investment", 50, 2);
         portfolio.sell("3", "Test Investment");
         Assertions.assertEquals(0, portfolio.holdings());
-        Assertions.assertFalse(portfolio.getRrsp().getInvestments().containsKey("Test Investment"));
+        Assertions.assertFalse(portfolio.getTfsa().getInvestments().containsKey("Test Investment"));
     }
 
     @Test
@@ -152,4 +152,5 @@ public class PortfolioTest {
         portfolio.buy("3", "Test Investment", 50, 2);
         Assertions.assertEquals(portfolio.getRrsp().holdings() * 0.15, portfolio.calculateTaxes("3"));
     }
+
 }

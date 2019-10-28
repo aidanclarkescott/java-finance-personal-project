@@ -29,17 +29,19 @@ public class UserInterfaceLogic {
     private void menuOptions() {
         while (true) {
             String command = printOptions();
-            if (command.equals("6")) {
+            if (command.equals("7")) {
                 break;
             } else if (command.equals("1")) {
                 budget.createBudgetInput();
             } else if (command.equals("2")) {
                 budget.addExpense(budget.whichBudgetScanner(), budget.nameScanner(), budget.priceScanner());
             } else if (command.equals("3")) {
-                investmentMenu();
+                budget.removeExpense(budget.whichBudgetScanner(), budget.nameScanner(), budget.priceScanner());
             } else if (command.equals("4")) {
-                printExpenses();
+                investmentMenu();
             } else if (command.equals("5")) {
+                printExpenses();
+            } else if (command.equals("6")) {
                 budget.printBudgets();
             }
         }
@@ -69,8 +71,9 @@ public class UserInterfaceLogic {
     // EFFECTS: prints out all the main menu options and takes in user input.
     private String printOptions() {
         System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
-                + "\n 3. View investment portfolio " + "\n 4. Print budget expenses"
-                + "\n 5. Print budget list" + "\n 6. Quit \n");
+                + "\n 3. Remove expense from existing budget "
+                + "\n 4. View investment portfolio " + "\n 5. Print budget expenses"
+                + "\n 6. Print budget list" + "\n 7. Quit \n");
         String command = reader.nextLine();
         return command;
     }

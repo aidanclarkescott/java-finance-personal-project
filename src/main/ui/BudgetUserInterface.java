@@ -16,15 +16,7 @@ public class BudgetUserInterface {
     }
 
     public void load() {
-        try {
-            budget.load();
-        } catch (IOException e) {
-            System.out.println("");
-        } catch (NoSuchElementException e) {
-            System.out.println("");
-        } catch (TooExpensiveException e) {
-            System.out.println("The saved items are too expensive for the budget, so nothing was loaded.");
-        }
+        budget.load();
     }
 
     // MODIFIES: this
@@ -74,6 +66,12 @@ public class BudgetUserInterface {
         } catch (TooExpensiveException e) {
             System.out.println("You cannot afford that item. \n");
         }
+    }
+
+    // MODIFIES: budget
+    // EFFECTS: removes an expense from a budget
+    public void removeExpense(String budgetName, String expenseName, double price) {
+        budget.removeExpense(budgetName, expenseName, price);
     }
 
     // EFFECTS: prints out all expenses and total spent for a particular budget.

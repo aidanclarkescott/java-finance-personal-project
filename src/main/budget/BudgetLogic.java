@@ -17,16 +17,20 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
-    public void load() throws IOException, TooExpensiveException {
-        File file = new File("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
-        Scanner fileReader = new Scanner(file);
-        String budgetName = fileReader.nextLine();
-        double budgetCap = Double.parseDouble(fileReader.nextLine());
-        this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
-        while (fileReader.hasNextLine()) {
-            String name = fileReader.nextLine();
-            double price = Double.parseDouble(fileReader.nextLine());
-            this.budgets.get(budgetName).addExpense(name, price);
+    public void load() {
+        try {
+            File file = new File("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
+            Scanner fileReader = new Scanner(file);
+            String budgetName = fileReader.nextLine();
+            double budgetCap = Double.parseDouble(fileReader.nextLine());
+            this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
+            while (fileReader.hasNextLine()) {
+                String name = fileReader.nextLine();
+                double price = Double.parseDouble(fileReader.nextLine());
+                this.budgets.get(budgetName).addExpense(name, price);
+            }
+        } catch (Exception e) {
+            System.out.println("");
         }
     }
 
@@ -50,6 +54,13 @@ public class BudgetLogic implements BudgetLogicBehaviour {
             throw new NoBudgetException();
         }
         this.budgets.get(budgetName).addExpense(name, price);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes a given expense from an existing budget
+    public void removeExpense(String budgetName, String name, double price) {
+        Expense tempExpense = new Expense(name, price);
+        this.budgets.get(budgetName).removeExpense(tempExpense);
     }
 
     // EFFECTS: returns the budgets HashMap.

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 public class ExpenseTest {
     private Expense expense;
 
@@ -57,5 +59,10 @@ public class ExpenseTest {
     public void testEqualsDifferentNameSamePrice() {
         Expense expenseOne = new Expense("Test", 100.50);
         Assertions.assertFalse(expense.equals(expenseOne));
+    }
+
+    @Test
+    public void testHashCode() {
+        Assertions.assertEquals(Objects.hash("Test Name", 100.50), expense.hashCode());
     }
 }

@@ -43,6 +43,12 @@ public class Budget {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes an expense from the budget
+    public void removeExpense(Expense tempExpense) {
+        expenses.remove(tempExpense);
+    }
+
     // EFFECTS: returns the total cost of all the expenses in the budget.
     public double getTotalExpenses() {
         return this.totalExpenses;

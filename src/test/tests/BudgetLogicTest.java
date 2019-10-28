@@ -1,9 +1,6 @@
 package tests;
 
-import budget.BudgetLogic;
-import budget.DuplicateBudgetException;
-import budget.NoBudgetException;
-import budget.TooExpensiveException;
+import budget.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -174,6 +171,25 @@ public class BudgetLogicTest {
     }
 
     @Test
+    public void testRemoveExpense() {
+        try {
+            budget.createBudget("Test Budget", 500);
+        } catch (DuplicateBudgetException e) {
+            fail();
+        }
+        try {
+            budget.addExpense("Test Budget", "Test Item", 50);
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (TooExpensiveException e) {
+            fail();
+        }
+        Assertions.assertEquals(1, budget.getBudgets().get("Test Budget").getExpenseList().size());
+        budget.removeExpense("Test Budget", "Test Item", 50);
+        Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getExpenseList().size());
+    }
+
+    @Test
     public void testSaveBudgetsOneExpense() throws TooExpensiveException {
         try {
             budget.createBudget("TestBudget", 500);
@@ -187,11 +203,7 @@ public class BudgetLogicTest {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        try {
-            newBudgetLogic.load();
-        } catch (IOException e) {
-            fail();
-        }
+        newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -212,11 +224,7 @@ public class BudgetLogicTest {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        try {
-            newBudgetLogic.load();
-        } catch (IOException e) {
-            fail();
-        }
+        newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
@@ -238,11 +246,7 @@ public class BudgetLogicTest {
             fail();
         }
         BudgetLogic newBudgetLogic = new BudgetLogic();
-        try {
-            newBudgetLogic.load();
-        } catch (IOException e) {
-            fail();
-        }
+        newBudgetLogic.load();
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
         Assertions.assertEquals("TestExpense1", newBudgetLogic.getBudgets().get("TestBudget")
                 .getExpenseList().get(0).getName());
