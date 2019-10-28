@@ -88,8 +88,45 @@ public class BudgetTest {
     }
 
     @Test
+    public void addExpenseDuplicate() {
+        try {
+            budget.addExpense("Test Item", 50);
+        } catch (TooExpensiveException e) {
+            fail();
+        }
+        Assertions.assertEquals(1, budget.getExpenseList().size());
+        try {
+            budget.addExpense("Test Item", 50);
+        } catch (TooExpensiveException e) {
+            fail();
+        }
+        Assertions.assertEquals(1, budget.getExpenseList().size());
+    }
+
+    @Test
+    public void testAddExpenseSimple() {
+        Expense expense = new Expense("Test", 50);
+        budget.addExpenseSimple(expense);
+        Assertions.assertTrue(budget.getExpenseList().contains(expense));
+        Assertions.assertEquals(1, budget.getExpenseList().size());
+    }
+
+    @Test
+    public void testAddExpenseSimpleDuplicateExpense() {
+        Expense expense = new Expense("Test", 50);
+        budget.addExpenseSimple(expense);
+        budget.addExpenseSimple(expense);
+        Assertions.assertTrue(budget.getExpenseList().contains(expense));
+        Assertions.assertEquals(1, budget.getExpenseList().size());
+    }
+
+    @Test
     public void testSaveExpensesOneExpense() throws IOException, TooExpensiveException {
-        budgetLogic.createBudget("TestBudget", 500);
+        try {
+            budgetLogic.createBudget("TestBudget", 500);
+        } catch (DuplicateBudgetException e) {
+            fail();
+        }
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();
         BudgetLogic newBudgetLogic = new BudgetLogic();
@@ -101,7 +138,11 @@ public class BudgetTest {
 
     @Test
     public void testSaveExpensesTwoExpenses() throws IOException, TooExpensiveException {
-        budgetLogic.createBudget("TestBudget", 500);
+        try {
+            budgetLogic.createBudget("TestBudget", 500);
+        } catch (DuplicateBudgetException e) {
+            fail();
+        }
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
         budgetLogic.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
         budgetLogic.getBudgets().get("TestBudget").saveExpenses();

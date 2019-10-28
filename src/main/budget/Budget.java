@@ -24,8 +24,23 @@ public class Budget {
         if ((totalExpenses + price) > budgetCap) {
             throw new TooExpensiveException();
         }
-        this.expenses.add(new Expense(name, price));
+
+        Expense tempExpense = new Expense(name, price);
+
+        if (!this.expenses.contains(tempExpense)) {
+            this.expenses.add(tempExpense);
+            tempExpense.setBudget(this);
+        }
         this.totalExpenses += price;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds an expense object to the list of expenses
+    public void addExpenseSimple(Expense expense) {
+        if (!this.expenses.contains(expense)) {
+            this.expenses.add(expense);
+            expense.setBudget(this);
+        }
     }
 
     // EFFECTS: returns the total cost of all the expenses in the budget.

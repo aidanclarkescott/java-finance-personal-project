@@ -28,4 +28,34 @@ public class ExpenseTest {
     public void testToString() {
         Assertions.assertEquals("Test Name 100.5", expense.toString());
     }
+
+    @Test
+    public void testEqualsDifferentClass() {
+        Budget budget = new Budget("Test", 50);
+        Assertions.assertFalse(expense.equals(budget));
+    }
+
+    @Test
+    public void testEqualsNull() {
+        Expense expenseOne = null;
+        Assertions.assertFalse(expense.equals(expenseOne));
+    }
+
+    @Test
+    public void testEquals() {
+        Expense expenseOne = new Expense("Test Name", 100.50);
+        Assertions.assertTrue(expense.equals(expenseOne));
+    }
+
+    @Test
+    public void testEqualsDifferentPrice() {
+        Expense expenseOne = new Expense("Test Name", 50);
+        Assertions.assertFalse(expense.equals(expenseOne));
+    }
+
+    @Test
+    public void testEqualsDifferentNameSamePrice() {
+        Expense expenseOne = new Expense("Test", 100.50);
+        Assertions.assertFalse(expense.equals(expenseOne));
+    }
 }

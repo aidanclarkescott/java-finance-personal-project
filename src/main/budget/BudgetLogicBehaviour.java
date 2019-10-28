@@ -6,7 +6,7 @@ import java.util.HashMap;
 public interface BudgetLogicBehaviour {
     void load() throws IOException, TooExpensiveException;
 
-    void createBudget(String budgetName, double budgetCap);
+    void createBudget(String budgetName, double budgetCap) throws DuplicateBudgetException;
 
     void addExpense(String budgetName, String name, double price) throws NoBudgetException, TooExpensiveException;
 

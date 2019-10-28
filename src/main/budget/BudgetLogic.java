@@ -33,7 +33,10 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // MODIFIES: this
     // EFFECTS: creates a budget with budgetName and budgetCap.
     @Override
-    public void createBudget(String budgetName, double budgetCap) {
+    public void createBudget(String budgetName, double budgetCap) throws DuplicateBudgetException {
+        if (this.budgets.containsKey(budgetName)) {
+            throw new DuplicateBudgetException();
+        }
         this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
     }
 

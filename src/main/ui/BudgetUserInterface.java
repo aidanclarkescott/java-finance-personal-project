@@ -3,6 +3,7 @@ package ui;
 import budget.*;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class BudgetUserInterface {
@@ -19,6 +20,8 @@ public class BudgetUserInterface {
             budget.load();
         } catch (IOException e) {
             System.out.println("");
+        } catch (NoSuchElementException e) {
+            System.out.println("");
         } catch (TooExpensiveException e) {
             System.out.println("The saved items are too expensive for the budget, so nothing was loaded.");
         }
@@ -31,7 +34,11 @@ public class BudgetUserInterface {
         String budgetName = reader.nextLine();
         System.out.print("Total budget maximum per month: ");
         double budgetCap = Double.parseDouble(reader.nextLine());
-        budget.createBudget(budgetName, budgetCap);
+        try {
+            budget.createBudget(budgetName, budgetCap);
+        } catch (DuplicateBudgetException e) {
+            System.out.println("You have already created that budget!");
+        }
         System.out.println("");
     }
 
