@@ -32,6 +32,10 @@ public class Expense {
         budget.addExpenseSimple(this);
     }
 
+    public void removeBudget() {
+        this.budget = null;
+    }
+
     // EFFECTS: returns the format for printing expenses.
     public String toString() {
         return getName() + " " + getPrice();

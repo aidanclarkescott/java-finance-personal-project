@@ -46,6 +46,7 @@ public class Budget {
     // MODIFIES: this
     // EFFECTS: removes an expense from the budget
     public void removeExpense(Expense tempExpense) {
+        tempExpense.removeBudget();
         expenses.remove(tempExpense);
     }
 
