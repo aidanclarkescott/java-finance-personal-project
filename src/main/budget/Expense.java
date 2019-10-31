@@ -30,10 +30,24 @@ public class Expense {
     public void setBudget(Budget budget) {
         this.budget = budget;
         budget.addExpenseSimple(this);
+
     }
 
-    public void removeBudget() {
-        this.budget = null;
+    // MODIFIES: this, budget
+    // EFFECTS: removes this expense from the list of expenses of a given budget, and sets this expense field to null
+    public void removeBudget(Budget budget) {
+        if (hasBudget()) {
+            this.budget = null;
+            budget.removeExpense(this);
+        }
+    }
+
+    // EFFECTS: returns true if expense has a budget, false otherwise
+    public Boolean hasBudget() {
+        if (this.budget == null) {
+            return false;
+        }
+        return true;
     }
 
     // EFFECTS: returns the format for printing expenses.

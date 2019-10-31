@@ -241,7 +241,7 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void testLoadOneExpenseExpectFail() throws TooExpensiveException{
+    public void testLoadOneExpenseExpectFail() throws TooExpensiveException {
         try {
             budget.createBudget("TestBudget", 500);
         } catch (DuplicateBudgetException e) {
