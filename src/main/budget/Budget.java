@@ -13,7 +13,7 @@ public class Budget {
     // REQUIRES: budgetCap cannot be negative;
     // EFFECTS: creates a new budget object with a list of expenses.
     public Budget(String name, double budgetCap) {
-        this.expenses = new ArrayList<Expense>();
+        this.expenses = new ArrayList<>();
         this.name = name;
         this.budgetCap = budgetCap;
     }
