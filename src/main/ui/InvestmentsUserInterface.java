@@ -30,10 +30,16 @@ public class InvestmentsUserInterface {
         }
     }
 
-    // EFFECTS: takes in user input for buying more of an existing stock.
-    public void buyMoreInput() {
+    // EFFECTS: takes in and returns the users choice of investment account.
+    public String investmentAccountScanner() {
         System.out.println("Which investment account: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
         String account = reader.nextLine();
+        return account;
+    }
+
+    // EFFECTS: takes in user input for buying more of an existing stock.
+    public void buyMoreInput() {
+        String account = investmentAccountScanner();
         printInvestments(account);
         System.out.println("");
         System.out.print("Which investment would you like to buy more of: ");
@@ -46,8 +52,7 @@ public class InvestmentsUserInterface {
 
     // EFFECTS: takes in user input for buying a new investment.
     public void buyNewInput() {
-        System.out.println("Which investment account: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
-        String account = reader.nextLine();
+        String account = investmentAccountScanner();
         System.out.print("Name of investment: ");
         String name = reader.nextLine();
         System.out.print("Value of investment: ");
@@ -60,8 +65,7 @@ public class InvestmentsUserInterface {
 
     // EFFECTS: takes in user input for selling an existing investment.
     public void sellInput() {
-        System.out.println("Which investment account is the investment in: 1. Non-Registered, 2. TFSA, 3. RRSP: ");
-        String account = reader.nextLine();
+        String account = investmentAccountScanner();
         System.out.print("Which investment would you like to sell: ");
         String investmentName = reader.nextLine();
         portfolio.sell(account, investmentName);
@@ -74,9 +78,7 @@ public class InvestmentsUserInterface {
 
     // EFFECTS: calculates taxes based on holdings for a given account.
     public double calculateTaxes() {
-        System.out.println("Which investment account would you like to calculate taxes for: "
-                + "1. Non-Registered, 2. TFSA, 3. RRSP: ");
-        String account = reader.nextLine();
+        String account = investmentAccountScanner();
         return portfolio.calculateTaxes(account);
     }
 

@@ -28,8 +28,7 @@ public class BudgetUserInterface {
     // MODIFIES: this
     // EFFECTS: asks for new budget name and creates a budget with that name.
     public void createBudgetInput() {
-        System.out.print("Budget name: ");
-        String budgetName = reader.nextLine();
+        String budgetName = whichBudgetScanner();
         System.out.print("Total budget maximum per month: ");
         double budgetCap = Double.parseDouble(reader.nextLine());
         try {
@@ -55,9 +54,8 @@ public class BudgetUserInterface {
 
     // EFFECTS: prints and returns a user specified budget name.
     public String whichBudgetScanner() {
-        System.out.print("Which budget: ");
+        System.out.print("Budget name: ");
         String budgetName = reader.nextLine();
-        System.out.println("You picked " + budgetName);
         return budgetName;
     }
 
