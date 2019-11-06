@@ -103,6 +103,13 @@ public class PortfolioTest {
     }
 
     @Test
+    public void testSellOptionFour() {
+        portfolio.buy("4", "Test Investment", 50, 2);
+        portfolio.sell("4", "Test Investment");
+        Assertions.assertEquals(0, portfolio.holdings());
+    }
+
+    @Test
     public void testBuyMoreNonRegistered() {
         portfolio.buy("1", "Test Investment", 50, 2);
         Assertions.assertEquals(100, portfolio.holdings());
@@ -127,6 +134,12 @@ public class PortfolioTest {
         portfolio.buyMore("3", "Test Investment", 2);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
         Assertions.assertEquals(4, portfolio.getRrsp().getInvestments().get("Test Investment").getQuantity());
+    }
+
+    @Test
+    public void testBuyMoreOption4() {
+        portfolio.buyMore("4", "Test Investment", 2);
+        Assertions.assertEquals(0, portfolio.holdings());
     }
 
     @Test
