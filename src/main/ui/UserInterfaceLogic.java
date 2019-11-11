@@ -39,13 +39,19 @@ public class UserInterfaceLogic {
                 budget.removeExpense(budget.whichBudgetScanner(), budget.nameScanner(), budget.priceScanner());
             } else if (command.equals("4")) {
                 investmentMenu();
-            } else if (command.equals("5")) {
-                printExpenses();
-            } else if (command.equals("6")) {
-                budget.printBudgets();
-            } else if (command.equals("7")) {
-                budget.displayInput();
+            } else {
+                menuOptionsContinued(command);
             }
+        }
+    }
+
+    private void menuOptionsContinued(String command) {
+        if (command.equals("5")) {
+            printExpenses();
+        } else if (command.equals("6")) {
+            budget.printBudgets();
+        } else if (command.equals("7")) {
+            budget.displayInput();
         }
     }
 
