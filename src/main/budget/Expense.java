@@ -4,17 +4,21 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-public class Expense {
-    private String name;
+public class Expense extends BudgetComponent {
     private double price;
     private Budget budget;
 
     // REQUIRES: price cannot be negative.
     // EFFECTS: creates a new expense with a name and a price.
     public Expense(String name, double price) {
-        this.name = name;
+        super(name);
         this.price = price;
         this.budget = null;
+    }
+
+    public void display(int indent) {
+        printIndent(indent);
+        System.out.println("Expense: " + name + ",  " + price);
     }
 
     // EFFECTS: returns the expenses name.
@@ -30,7 +34,6 @@ public class Expense {
     public void setBudget(Budget budget) {
         this.budget = budget;
         budget.addExpenseSimple(this);
-
     }
 
     // MODIFIES: this, budget

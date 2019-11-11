@@ -1,7 +1,7 @@
 package ui;
 
-import java.io.IOException;
 import java.util.Scanner;
+import network.*;
 
 public class Main {
 
@@ -10,7 +10,6 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         UserInterfaceLogic ui = new UserInterfaceLogic(reader);
         ui.menu();
-
     }
 }
 

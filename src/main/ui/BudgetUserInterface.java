@@ -10,9 +10,15 @@ public class BudgetUserInterface {
     private Scanner reader;
     private BudgetLogicBehaviour budget;
 
-    public BudgetUserInterface(Scanner reader) {
-        this.reader = reader;
+    private static BudgetUserInterface budgetUserInterface = new BudgetUserInterface();
+
+    private BudgetUserInterface() {
+        this.reader = new Scanner(System.in);
         this.budget = new BudgetLogic();
+    }
+
+    public static BudgetUserInterface getInstance() {
+        return budgetUserInterface;
     }
 
     public void load() {
@@ -20,6 +26,8 @@ public class BudgetUserInterface {
             budget.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
         } catch (IOException e) {
             System.out.println("File not found!");
+        } catch (NoSuchElementException e) {
+            System.out.println("");
         } catch (TooExpensiveException e) {
             System.out.println("Item too expensive for budget!");
         }
@@ -31,12 +39,31 @@ public class BudgetUserInterface {
         String budgetName = whichBudgetScanner();
         System.out.print("Total budget maximum per month: ");
         double budgetCap = Double.parseDouble(reader.nextLine());
+        Boolean isNested = nestedBudgetInput();
         try {
             budget.createBudget(budgetName, budgetCap);
+            if (isNested) {
+                String budgetNestedWithin = whichBudgetScanner();
+                budget.addNestedBudget(budgetName, budgetNestedWithin);
+            }
         } catch (DuplicateBudgetException e) {
             System.out.println("You have already created that budget!");
         }
         System.out.println("");
+    }
+
+    public Boolean nestedBudgetInput() {
+        System.out.println("Do you want to put this budget in an existing budget? (Yes/No)");
+        String isNested = reader.nextLine();
+        if (isNested.equals("Yes")) {
+            return true;
+        }
+        return false;
+    }
+
+    public void displayInput() {
+        String tempBudget = whichBudgetScanner();
+        budget.display(tempBudget);
     }
 
     // EFFECTS: returns user given item name.

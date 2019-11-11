@@ -136,5 +136,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" name="json-simple-1.11" level="project" />
   </component>
 </module>

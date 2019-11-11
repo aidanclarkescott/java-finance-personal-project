@@ -7,13 +7,13 @@ import java.util.Scanner;
 public class UserInterfaceLogic {
     private Scanner reader;
     private BudgetUserInterface budget;
-    private InvestmentsUserInterface portfolio;
+    private InvestmentUserInterface portfolio;
 
     // EFFECTS: Creates a new ui object with a budget list and starts the program.
     public UserInterfaceLogic(Scanner reader) {
         this.reader = reader;
-        this.budget = new BudgetUserInterface(reader);
-        this.portfolio = new InvestmentsUserInterface(reader);
+        this.budget = BudgetUserInterface.getInstance();
+        this.portfolio = InvestmentUserInterface.getInstance();
         budget.load();
     }
 
@@ -29,7 +29,7 @@ public class UserInterfaceLogic {
     private void menuOptions() {
         while (true) {
             String command = printOptions();
-            if (command.equals("7")) {
+            if (command.equals("8")) {
                 break;
             } else if (command.equals("1")) {
                 budget.createBudgetInput();
@@ -43,6 +43,8 @@ public class UserInterfaceLogic {
                 printExpenses();
             } else if (command.equals("6")) {
                 budget.printBudgets();
+            } else if (command.equals("7")) {
+                budget.displayInput();
             }
         }
     }
@@ -73,7 +75,8 @@ public class UserInterfaceLogic {
         System.out.println("Menu: \n 1. Create a new budget " + "\n 2. Add expense to existing budget "
                 + "\n 3. Remove expense from existing budget "
                 + "\n 4. View investment portfolio " + "\n 5. Print budget expenses"
-                + "\n 6. Print budget list" + "\n 7. Quit \n");
+                + "\n 6. Print budget list" + "\n 7. Print a budget hierarchy"
+                + "\n 8. Quit \n");
         String command = reader.nextLine();
         return command;
     }

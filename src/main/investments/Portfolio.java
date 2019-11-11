@@ -1,26 +1,33 @@
 package investments;
 
+import observer.Observer;
+
 import java.util.Scanner;
 
-public class Portfolio implements GeneralInvestment {
+public class Portfolio implements GeneralInvestment, Observer {
     private InvestmentAccount nonRegistered;
     private InvestmentAccount tfsa;
     private InvestmentAccount rrsp;
+    private double totalHoldings = 0;
 
     // EFFECTS: creates a new portfolio object with an instance of each investment account
     public Portfolio(Scanner reader) {
         this.nonRegistered = new NonRegistered(reader);
         this.tfsa = new Tfsa(reader);
         this.rrsp = new Rrsp(reader);
+        this.nonRegistered.addObserver(this);
+        this.tfsa.addObserver(this);
+        this.rrsp.addObserver(this);
+    }
+
+    @Override
+    public void update(double value) {
+        totalHoldings += value;
     }
 
     // EFFECTS: returns the total value of all the investments.
     public double holdings() {
-        double sum = 0;
-        sum += this.nonRegistered.holdings();
-        sum += this.tfsa.holdings();
-        sum += this.rrsp.holdings();
-        return sum;
+        return totalHoldings;
     }
 
     // EFFECTS: calls the appropriate buy more method on different accounts based on user input.
@@ -82,4 +89,5 @@ public class Portfolio implements GeneralInvestment {
     public InvestmentAccount getRrsp() {
         return this.rrsp;
     }
+
 }

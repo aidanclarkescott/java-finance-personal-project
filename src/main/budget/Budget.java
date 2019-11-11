@@ -2,20 +2,34 @@ package budget;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class Budget {
+public class Budget extends BudgetComponent {
     private ArrayList<Expense> expenses;
+    private List<BudgetComponent> budgetComponents;
     private double budgetCap;
     private double totalExpenses;
-    private String name;
 
     // REQUIRES: budgetCap cannot be negative;
     // EFFECTS: creates a new budget object with a list of expenses.
     public Budget(String name, double budgetCap) {
+        super(name);
         this.expenses = new ArrayList<>();
-        this.name = name;
         this.budgetCap = budgetCap;
+        this.budgetComponents = new ArrayList<>();
+    }
+
+    public void addBudgetComponent(BudgetComponent b) {
+        this.budgetComponents.add(b);
+    }
+
+    public void display(int indent) {
+        printIndent(indent);
+        System.out.println("Budget: " + name);
+        for (BudgetComponent b : budgetComponents) {
+            b.display(indent + 1);
+        }
     }
 
     // MODIFIES: this
@@ -28,6 +42,7 @@ public class Budget {
         Expense tempExpense = new Expense(name, price);
 
         if (!this.expenses.contains(tempExpense)) {
+            addBudgetComponent(tempExpense);
             this.expenses.add(tempExpense);
             tempExpense.setBudget(this);
         }

@@ -3,6 +3,7 @@ package budget;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class BudgetLogic implements BudgetLogicBehaviour {
@@ -17,7 +18,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
-    public String load(String fileName) throws IOException, TooExpensiveException {
+    public String load(String fileName) throws IOException, TooExpensiveException, NoSuchElementException {
         File file = new File(fileName);
         Scanner fileReader = new Scanner(file);
         String budgetName = fileReader.nextLine();
@@ -38,7 +39,17 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         if (this.budgets.containsKey(budgetName)) {
             throw new DuplicateBudgetException();
         }
-        this.budgets.put(budgetName, new Budget(budgetName, budgetCap));
+        Budget tempBudget = new Budget(budgetName, budgetCap);
+        this.budgets.put(budgetName, tempBudget);
+    }
+
+    public void addNestedBudget(String budgetName, String budgetNestedWithin) {
+        Budget tempBudget = this.budgets.get(budgetName);
+        this.budgets.get(budgetNestedWithin).addBudgetComponent(tempBudget);
+    }
+
+    public void display(String budgetName) {
+        this.budgets.get(budgetName).display(0);
     }
 
     // REQUIRES: must have created a budget already.

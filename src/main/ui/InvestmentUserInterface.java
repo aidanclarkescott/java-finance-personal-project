@@ -2,16 +2,25 @@ package ui;
 
 import investments.Investment;
 import investments.Portfolio;
+import network.StockData;
 
 import java.util.Scanner;
 
-public class InvestmentsUserInterface {
+public class InvestmentUserInterface {
     private Scanner reader;
     private Portfolio portfolio;
+    private StockData stockData;
 
-    public InvestmentsUserInterface(Scanner reader) {
-        this.reader = reader;
+    private static InvestmentUserInterface investmentUserInterface = new InvestmentUserInterface();
+
+    private InvestmentUserInterface() {
+        this.reader = new Scanner(System.in);
         this.portfolio = new Portfolio(reader);
+        this.stockData = new StockData();
+    }
+
+    public static InvestmentUserInterface getInstance() {
+        return investmentUserInterface;
     }
 
     // EFFECTS: takes in user input for the buy investment menu.
@@ -55,8 +64,7 @@ public class InvestmentsUserInterface {
         String account = investmentAccountScanner();
         System.out.print("Name of investment: ");
         String name = reader.nextLine();
-        System.out.print("Value of investment: ");
-        double value = Double.parseDouble(reader.nextLine());
+        double value = stockData.formatApiQuery(name);
         System.out.print("Quantity to purchase: ");
         int quantity = Integer.parseInt(reader.nextLine());
         portfolio.buy(account, name, value, quantity);
