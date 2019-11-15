@@ -60,6 +60,14 @@ public class BudgetLogicTest {
     }
 
     @Test
+    public void testAddNestedBudget() throws DuplicateBudgetException {
+        budget.createBudget("Main", 500);
+        budget.createBudget("Extra", 50);
+        budget.addNestedBudget("Extra", "Main");
+        Assertions.assertEquals(1, budget.getBudgets().get("Main").getBudgetComponents().size());
+    }
+
+    @Test
     public void testAddNoExpense() {
         try {
             budget.createBudget("Test Budget", 500);

@@ -23,6 +23,15 @@ public class PortfolioTest {
     }
 
     @Test
+    public void testConstructorDuplicateObserver() {
+        InvestmentAccount rrsp = portfolio.getRrsp();
+        Portfolio port2 = this.portfolio;
+        rrsp.addObserver(port2);
+        rrsp.buy("AAPL", 20, 1);
+        Assertions.assertEquals(20, portfolio.holdings());
+    }
+
+    @Test
     public void testHoldings() {
         portfolio.buy("1", "TestInvestment", 50, 5);
         portfolio.buy("2", "TestInvestment2", 50, 5);

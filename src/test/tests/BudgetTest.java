@@ -27,6 +27,12 @@ public class BudgetTest {
     }
 
     @Test
+    public void testGetBudgetComponents() throws TooExpensiveException {
+        budget.addExpense("Test", 50);
+        Assertions.assertEquals(1, budget.getBudgetComponents().size());
+    }
+
+    @Test
     public void testAddNoExpense() {
         Assertions.assertEquals(0, budget.getExpenseList().size());
         Assertions.assertEquals(0, budget.getTotalExpenses());

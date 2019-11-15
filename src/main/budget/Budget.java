@@ -90,6 +90,10 @@ public class Budget extends BudgetComponent {
         return this.expenses;
     }
 
+    public List<BudgetComponent> getBudgetComponents() {
+        return this.budgetComponents;
+    }
+
     // EFFECTS: saves the name and budget cap of a budget to file along with all of its expenses.
     public void saveExpenses() throws IOException {
         FileWriter writer = new FileWriter("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
