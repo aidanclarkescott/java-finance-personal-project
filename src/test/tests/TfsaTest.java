@@ -14,7 +14,7 @@ public class TfsaTest {
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        tfsa = new Tfsa(reader);
+        tfsa = new Tfsa();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class TfsaTest {
         tfsa.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(100 * 5, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
-        tfsa.sell("Test Investment 1");
+        tfsa.sell("Test Investment 1", 5);
         Assertions.assertEquals(0, tfsa.holdings());
         Assertions.assertFalse(tfsa.getInvestments().containsKey("Test Investment 1"));
     }
@@ -87,8 +87,8 @@ public class TfsaTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 2"));
-        tfsa.sell("Test Investment 1");
-        tfsa.sell("Test Investment 2");
+        tfsa.sell("Test Investment 1", 5);
+        tfsa.sell("Test Investment 2", 2);
         Assertions.assertEquals(0, tfsa.holdings());
         Assertions.assertFalse(tfsa.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(tfsa.getInvestments().containsKey("Test Investment 2"));
@@ -101,7 +101,7 @@ public class TfsaTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 2"));
-        tfsa.sell("Test Investment 2");
+        tfsa.sell("Test Investment 2", 2);
         Assertions.assertEquals(100 * 5, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(tfsa.getInvestments().containsKey("Test Investment 2"));

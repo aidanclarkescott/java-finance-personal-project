@@ -11,10 +11,10 @@ public class Portfolio implements GeneralInvestment, Observer {
     private double totalHoldings = 0;
 
     // EFFECTS: creates a new portfolio object with an instance of each investment account
-    public Portfolio(Scanner reader) {
-        this.nonRegistered = new NonRegistered(reader);
-        this.tfsa = new Tfsa(reader);
-        this.rrsp = new Rrsp(reader);
+    public Portfolio() {
+        this.nonRegistered = new NonRegistered();
+        this.tfsa = new Tfsa();
+        this.rrsp = new Rrsp();
         this.nonRegistered.addObserver(this);
         this.tfsa.addObserver(this);
         this.rrsp.addObserver(this);
@@ -27,7 +27,7 @@ public class Portfolio implements GeneralInvestment, Observer {
 
     // EFFECTS: returns the total value of all the investments.
     public double holdings() {
-        return totalHoldings;
+        return Math.round((totalHoldings * 100.0) / 100.0);
     }
 
     // EFFECTS: calls the appropriate buy more method on different accounts based on user input.
@@ -53,13 +53,13 @@ public class Portfolio implements GeneralInvestment, Observer {
     }
 
     // EFFECTS: calls the appropriate method on different accounts to sell an investment.
-    public void sell(String account, String investmentName) {
+    public void sell(String account, String investmentName, int quantity) {
         if (account.equals("1")) {
-            nonRegistered.sell(investmentName);
+            nonRegistered.sell(investmentName, quantity);
         } else if (account.equals("2")) {
-            tfsa.sell(investmentName);
+            tfsa.sell(investmentName, quantity);
         } else if (account.equals("3")) {
-            rrsp.sell(investmentName);
+            rrsp.sell(investmentName, quantity);
         }
     }
 

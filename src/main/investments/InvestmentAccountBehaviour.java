@@ -8,7 +8,7 @@ public interface InvestmentAccountBehaviour {
 
     void buy(String name, double value, int quantity);
 
-    void sell(String investmentName);
+    void sell(String investmentName, int quantity);
 
     HashMap<String, Investment> getInvestments();
 

@@ -14,7 +14,7 @@ public class RrspTest {
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        rrsp = new Rrsp(reader);
+        rrsp = new Rrsp();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class RrspTest {
         rrsp.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(100 * 5, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 1"));
-        rrsp.sell("Test Investment 1");
+        rrsp.sell("Test Investment 1", 5);
         Assertions.assertEquals(0, rrsp.holdings());
         Assertions.assertFalse(rrsp.getInvestments().containsKey("Test Investment 1"));
     }
@@ -87,8 +87,8 @@ public class RrspTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 2"));
-        rrsp.sell("Test Investment 1");
-        rrsp.sell("Test Investment 2");
+        rrsp.sell("Test Investment 1", 5);
+        rrsp.sell("Test Investment 2", 2);
         Assertions.assertEquals(0, rrsp.holdings());
         Assertions.assertFalse(rrsp.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(rrsp.getInvestments().containsKey("Test Investment 2"));
@@ -101,7 +101,7 @@ public class RrspTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 2"));
-        rrsp.sell("Test Investment 2");
+        rrsp.sell("Test Investment 2", 2);
         Assertions.assertEquals(100 * 5, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(rrsp.getInvestments().containsKey("Test Investment 2"));

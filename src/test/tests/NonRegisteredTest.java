@@ -14,7 +14,7 @@ public class NonRegisteredTest {
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        nonRegistered = new NonRegistered(reader);
+        nonRegistered = new NonRegistered();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class NonRegisteredTest {
         nonRegistered.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(100 * 5, nonRegistered.holdings());
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 1"));
-        nonRegistered.sell("Test Investment 1");
+        nonRegistered.sell("Test Investment 1", 5);
         Assertions.assertEquals(0, nonRegistered.holdings());
         Assertions.assertFalse(nonRegistered.getInvestments().containsKey("Test Investment 1"));
     }
@@ -87,8 +87,8 @@ public class NonRegisteredTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, nonRegistered.holdings());
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 2"));
-        nonRegistered.sell("Test Investment 1");
-        nonRegistered.sell("Test Investment 2");
+        nonRegistered.sell("Test Investment 1", 5);
+        nonRegistered.sell("Test Investment 2", 2);
         Assertions.assertEquals(0, nonRegistered.holdings());
         Assertions.assertFalse(nonRegistered.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(nonRegistered.getInvestments().containsKey("Test Investment 2"));
@@ -101,7 +101,7 @@ public class NonRegisteredTest {
         Assertions.assertEquals(100 * 5 + 50 * 2, nonRegistered.holdings());
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 2"));
-        nonRegistered.sell("Test Investment 2");
+        nonRegistered.sell("Test Investment 2", 2);
         Assertions.assertEquals(100 * 5, nonRegistered.holdings());
         Assertions.assertTrue(nonRegistered.getInvestments().containsKey("Test Investment 1"));
         Assertions.assertFalse(nonRegistered.getInvestments().containsKey("Test Investment 2"));

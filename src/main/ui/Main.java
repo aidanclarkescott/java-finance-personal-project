@@ -3,13 +3,17 @@ package ui;
 import java.util.Scanner;
 import network.*;
 
+import javax.swing.*;
+
 public class Main {
 
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        UserInterfaceLogic ui = new UserInterfaceLogic(reader);
-        ui.menu();
+        UserInterfaceLogic uiL = new UserInterfaceLogic(reader);
+        //uiL.menu();
+        UserInterface ui = new UserInterface();
+        SwingUtilities.invokeLater(ui);
     }
 }
 

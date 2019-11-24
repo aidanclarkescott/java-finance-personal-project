@@ -18,7 +18,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
-    public String load(String fileName) throws IOException, TooExpensiveException, NoSuchElementException {
+    public String load(String fileName) throws IOException, TooExpensiveException, DuplicateItemException {
         File file = new File(fileName);
         Scanner fileReader = new Scanner(file);
         String budgetName = fileReader.nextLine();
@@ -57,7 +57,7 @@ public class BudgetLogic implements BudgetLogicBehaviour {
     // EFFECTS: adds an expense to an existing budget.
     @Override
     public void addExpense(String budgetName, String name, double price) throws NoBudgetException,
-            TooExpensiveException {
+            TooExpensiveException, DuplicateItemException {
         if (this.budgets.get(budgetName) == null) {
             throw new NoBudgetException();
         }
@@ -66,8 +66,12 @@ public class BudgetLogic implements BudgetLogicBehaviour {
 
     // MODIFIES: this
     // EFFECTS: removes a given expense from an existing budget
-    public void removeExpense(String budgetName, String name, double price) {
+    public void removeExpense(String budgetName, String name, double price) throws NoBudgetException,
+            NonexistentItemException {
         Expense tempExpense = new Expense(name, price);
+        if (this.budgets.get(budgetName) == null) {
+            throw new NoBudgetException();
+        }
         this.budgets.get(budgetName).removeExpense(tempExpense);
     }
 

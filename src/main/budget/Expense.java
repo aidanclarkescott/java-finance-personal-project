@@ -36,15 +36,6 @@ public class Expense extends BudgetComponent {
         budget.addExpenseSimple(this);
     }
 
-    // MODIFIES: this, budget
-    // EFFECTS: removes this expense from the list of expenses of a given budget, and sets this expense field to null
-    public void removeBudget(Budget budget) {
-        if (hasBudget()) {
-            this.budget = null;
-            budget.removeExpense(this);
-        }
-    }
-
     // EFFECTS: returns true if expense has a budget, false otherwise
     public Boolean hasBudget() {
         if (this.budget == null) {
@@ -69,11 +60,11 @@ public class Expense extends BudgetComponent {
 
         Expense expense = (Expense) o;
 
-        return this.price == expense.getPrice() && name.equals(expense.name);
+        return name.equals(expense.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price);
+        return Objects.hash(name);
     }
 }

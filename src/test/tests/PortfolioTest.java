@@ -14,7 +14,7 @@ public class PortfolioTest {
     @BeforeEach
     public void setup() {
         reader = new Scanner(System.in);
-        portfolio = new Portfolio(reader);
+        portfolio = new Portfolio();
     }
 
     @Test
@@ -90,7 +90,7 @@ public class PortfolioTest {
     @Test
     public void testSellNonRegistered() {
         portfolio.buy("1", "Test Investment", 50, 2);
-        portfolio.sell("1", "Test Investment");
+        portfolio.sell("1", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
         Assertions.assertFalse(portfolio.getNonRegistered().getInvestments().containsKey("Test Investment"));
     }
@@ -98,7 +98,7 @@ public class PortfolioTest {
     @Test
     public void testSellTfsa() {
         portfolio.buy("2", "Test Investment", 50, 2);
-        portfolio.sell("2", "Test Investment");
+        portfolio.sell("2", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
         Assertions.assertFalse(portfolio.getTfsa().getInvestments().containsKey("Test Investment"));
     }
@@ -106,7 +106,7 @@ public class PortfolioTest {
     @Test
     public void testSellRrsp() {
         portfolio.buy("3", "Test Investment", 50, 2);
-        portfolio.sell("3", "Test Investment");
+        portfolio.sell("3", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
         Assertions.assertFalse(portfolio.getTfsa().getInvestments().containsKey("Test Investment"));
     }
@@ -114,7 +114,7 @@ public class PortfolioTest {
     @Test
     public void testSellOptionFour() {
         portfolio.buy("4", "Test Investment", 50, 2);
-        portfolio.sell("4", "Test Investment");
+        portfolio.sell("4", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
     }
 

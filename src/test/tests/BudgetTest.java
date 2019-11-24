@@ -27,7 +27,7 @@ public class BudgetTest {
     }
 
     @Test
-    public void testGetBudgetComponents() throws TooExpensiveException {
+    public void testGetBudgetComponents() throws TooExpensiveException, DuplicateItemException {
         budget.addExpense("Test", 50);
         Assertions.assertEquals(1, budget.getBudgetComponents().size());
     }
@@ -42,7 +42,7 @@ public class BudgetTest {
     public void testAddExpenseExpectNoExceptions() {
         try {
             budget.addExpense("Test Item", 100.50);
-        } catch (TooExpensiveException e) {
+        } catch (TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(budget.getExpenseList().get(0).getName().equals("Test Item"));
@@ -57,7 +57,7 @@ public class BudgetTest {
         try {
             budget.addExpense("Test Item 1", 50.55);
             budget.addExpense("Test Item 2", 60.22);
-        } catch (TooExpensiveException e) {
+        } catch (TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(budget.getExpenseList().get(1).getName().equals("Test Item 2"));
@@ -73,6 +73,8 @@ public class BudgetTest {
             fail();
         } catch (TooExpensiveException e) {
 
+        } catch (DuplicateItemException e) {
+            fail();
         }
         Assertions.assertEquals(0, budget.getExpenseList().size());
         Assertions.assertEquals(0, budget.getTotalExpenses());
@@ -87,6 +89,8 @@ public class BudgetTest {
             fail();
         } catch (TooExpensiveException e) {
 
+        } catch (DuplicateItemException e) {
+            fail();
         }
         Assertions.assertEquals(1, budget.getExpenseList().size());
         Assertions.assertEquals(200, budget.getTotalExpenses());
@@ -97,7 +101,7 @@ public class BudgetTest {
     public void addExpenseDuplicate() {
         try {
             budget.addExpense("Test Item", 50);
-        } catch (TooExpensiveException e) {
+        } catch (TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertEquals(1, budget.getExpenseList().size());
@@ -105,6 +109,8 @@ public class BudgetTest {
             budget.addExpense("Test Item", 50);
         } catch (TooExpensiveException e) {
             fail();
+        } catch (DuplicateItemException e) {
+
         }
         Assertions.assertEquals(1, budget.getExpenseList().size());
     }
@@ -131,12 +137,16 @@ public class BudgetTest {
         Expense expense = new Expense("Test", 50);
         budget.addExpenseSimple(expense);
         Assertions.assertEquals(1, budget.getExpenseList().size());
-        budget.removeExpense(expense);
+        try {
+            budget.removeExpense(expense);
+        } catch (NonexistentItemException e) {
+            fail();
+        }
         Assertions.assertEquals(0, budget.getExpenseList().size());
     }
 
     @Test
-    public void testSaveExpensesOneExpense() throws IOException, TooExpensiveException {
+    public void testSaveExpensesOneExpense() throws IOException, TooExpensiveException, DuplicateItemException {
         try {
             budgetLogic.createBudget("TestBudget", 500);
         } catch (DuplicateBudgetException e) {
@@ -152,7 +162,7 @@ public class BudgetTest {
     }
 
     @Test
-    public void testSaveExpensesTwoExpenses() throws IOException, TooExpensiveException {
+    public void testSaveExpensesTwoExpenses() throws IOException, TooExpensiveException, DuplicateItemException {
         try {
             budgetLogic.createBudget("TestBudget", 500);
         } catch (DuplicateBudgetException e) {

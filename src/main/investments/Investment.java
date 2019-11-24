@@ -33,9 +33,19 @@ public class Investment implements GeneralInvestment {
     }
 
     // REQUIRES: amount cannot be negative.
+    // MODIFIES: this
     // EFFECTS: increases the quantity owned of the stock by given amount.
     public void buy(int amount) {
         this.quantity += amount;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sells a given quantity of the investment.
+    public void sell(int amount) {
+        this.quantity -= amount;
+        if (quantity <= 0) {
+            quantity = 0;
+        }
     }
 
     // EFFECTS: outlines formatting for printing an investment.

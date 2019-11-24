@@ -87,9 +87,7 @@ public class BudgetLogicTest {
         }
         try {
             budget.addExpense("Test Budget", "Test Item", 100.50);
-        } catch (NoBudgetException e) {
-            fail();
-        } catch (TooExpensiveException e) {
+        } catch (NoBudgetException | TooExpensiveException | DuplicateItemException e){
             fail();
         }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
@@ -110,9 +108,7 @@ public class BudgetLogicTest {
         try {
             budget.addExpense("Test Budget", "Test Item", 100.50);
             budget.addExpense("Test Budget", "Test Item 2", 50.55);
-        } catch (NoBudgetException e) {
-            fail();
-        } catch (TooExpensiveException e) {
+        } catch (NoBudgetException | TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget").getExpenseList()
@@ -134,9 +130,7 @@ public class BudgetLogicTest {
 
         try {
             budget.addExpense("Test Budget 2", "Test Item", 150);
-        } catch (NoBudgetException e) {
-            fail();
-        } catch (TooExpensiveException e) {
+        } catch (NoBudgetException | TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(budget.getBudgets().get("Test Budget 2").getExpenseList()
@@ -160,6 +154,8 @@ public class BudgetLogicTest {
             fail();
         } catch (TooExpensiveException e) {
 
+        } catch (DuplicateItemException e) {
+            fail();
         }
         Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getExpenseList().size());
         Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getTotalExpenses());
@@ -175,6 +171,8 @@ public class BudgetLogicTest {
 
         } catch (TooExpensiveException e) {
             fail();
+        } catch (DuplicateItemException e) {
+            fail();
         }
     }
 
@@ -187,13 +185,17 @@ public class BudgetLogicTest {
         }
         try {
             budget.addExpense("Test Budget", "Test Item", 50);
-        } catch (NoBudgetException e) {
-            fail();
-        } catch (TooExpensiveException e) {
+        } catch (NoBudgetException | TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertEquals(1, budget.getBudgets().get("Test Budget").getExpenseList().size());
-        budget.removeExpense("Test Budget", "Test Item", 50);
+        try {
+            budget.removeExpense("Test Budget", "Test Item", 50);
+        } catch (NoBudgetException e) {
+            fail();
+        } catch (NonexistentItemException e) {
+            fail();
+        }
         Assertions.assertEquals(0, budget.getBudgets().get("Test Budget").getExpenseList().size());
     }
 
@@ -204,7 +206,11 @@ public class BudgetLogicTest {
         } catch (DuplicateBudgetException e) {
             fail();
         }
-        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        try {
+            budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+        } catch (DuplicateItemException e) {
+            fail();
+        }
         try {
             budget.saveBudgets();
         } catch (IOException e) {
@@ -213,7 +219,7 @@ public class BudgetLogicTest {
         BudgetLogic newBudgetLogic = new BudgetLogic();
         try {
             Assertions.assertEquals("File found.", newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt"));
-        } catch (IOException e) {
+        } catch (IOException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
@@ -228,8 +234,12 @@ public class BudgetLogicTest {
         } catch (DuplicateBudgetException e) {
             fail();
         }
-        budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
-        budget.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
+        try {
+            budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
+            budget.getBudgets().get("TestBudget").addExpense("TestExpense2", 100);
+        } catch (DuplicateItemException e) {
+            fail();
+        }
         try {
             budget.saveBudgets();
         } catch (IOException e) {
@@ -238,7 +248,7 @@ public class BudgetLogicTest {
         BudgetLogic newBudgetLogic = new BudgetLogic();
         try {
             Assertions.assertEquals("File found.", newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt"));
-        } catch (IOException e) {
+        } catch (IOException | DuplicateItemException e) {
             fail();
         }
         Assertions.assertTrue(newBudgetLogic.getBudgets().containsKey("TestBudget"));
@@ -257,7 +267,7 @@ public class BudgetLogicTest {
         }
         try {
             budget.getBudgets().get("TestBudget").addExpense("TestExpense1", 50);
-        } catch (TooExpensiveException e) {
+        } catch (TooExpensiveException | DuplicateItemException e) {
             fail();
         }
         try {
@@ -270,6 +280,8 @@ public class BudgetLogicTest {
             newBudgetLogic.load("/Users/aidan/IdeaProjects/Personal_Project/data/missingfile.txt");
         } catch (IOException e) {
 
+        } catch (DuplicateItemException e) {
+            fail();
         }
         Assertions.assertEquals(0, newBudgetLogic.getBudgets().size());
     }

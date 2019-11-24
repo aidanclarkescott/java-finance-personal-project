@@ -52,7 +52,7 @@ public class ExpenseTest {
     @Test
     public void testEqualsDifferentPrice() {
         Expense expenseOne = new Expense("Test Name", 50);
-        Assertions.assertFalse(expense.equals(expenseOne));
+        Assertions.assertTrue(expense.equals(expenseOne));
     }
 
     @Test
@@ -63,6 +63,6 @@ public class ExpenseTest {
 
     @Test
     public void testHashCode() {
-        Assertions.assertEquals(Objects.hash("Test Name", 100.50), expense.hashCode());
+        Assertions.assertEquals(Objects.hash("Test Name"), expense.hashCode());
     }
 }

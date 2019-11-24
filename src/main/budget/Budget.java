@@ -34,7 +34,7 @@ public class Budget extends BudgetComponent {
 
     // MODIFIES: this
     // EFFECTS: adds an expense to the budget with a given name and price.
-    public void addExpense(String name, double price) throws TooExpensiveException {
+    public void addExpense(String name, double price) throws TooExpensiveException, DuplicateItemException {
         if ((totalExpenses + price) > budgetCap) {
             throw new TooExpensiveException();
         }
@@ -45,8 +45,10 @@ public class Budget extends BudgetComponent {
             addBudgetComponent(tempExpense);
             this.expenses.add(tempExpense);
             tempExpense.setBudget(this);
+            this.totalExpenses += price;
+        } else {
+            throw new DuplicateItemException();
         }
-        this.totalExpenses += price;
     }
 
     // MODIFIES: this
@@ -60,9 +62,13 @@ public class Budget extends BudgetComponent {
 
     // MODIFIES: this
     // EFFECTS: removes an expense from the budget
-    public void removeExpense(Expense tempExpense) {
-        expenses.remove(tempExpense);
-        tempExpense.removeBudget(this);
+    public void removeExpense(Expense tempExpense) throws NonexistentItemException {
+        if (expenses.contains(tempExpense)) {
+            expenses.remove(tempExpense);
+            this.totalExpenses -= tempExpense.getPrice();
+        } else {
+            throw new NonexistentItemException();
+        }
     }
 
     // EFFECTS: returns the total cost of all the expenses in the budget.

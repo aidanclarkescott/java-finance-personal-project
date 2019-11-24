@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 public interface BudgetLogicBehaviour {
-    String load(String fileName) throws IOException, TooExpensiveException;
+    String load(String fileName) throws IOException, TooExpensiveException, DuplicateItemException;
 
     void createBudget(String budgetName, double budgetCap) throws DuplicateBudgetException;
 
     void addExpense(String budgetName, String name, double price) throws NoBudgetException,
-            TooExpensiveException, NoSuchElementException;
+            TooExpensiveException, DuplicateItemException;
 
-    void removeExpense(String budgetName, String name, double price);
+    void removeExpense(String budgetName, String name, double price) throws NoBudgetException, NonexistentItemException;
 
     void saveBudgets() throws IOException;
 

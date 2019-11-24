@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 public abstract class InvestmentAccount extends Subject implements GeneralInvestment, InvestmentAccountBehaviour {
     protected HashMap<String, Investment> investments;
-    protected Scanner reader;
 
-    public InvestmentAccount(Scanner reader) {
+    public InvestmentAccount() {
         this.investments = new HashMap<>();
-        this.reader = reader;
     }
 
     // EFFECTS: returns the total value of all the investments in the account.
@@ -35,16 +33,24 @@ public abstract class InvestmentAccount extends Subject implements GeneralInvest
     // MODIFIES: this
     // EFFECTS: creates a new investment and places it in the account.
     public void buy(String name, double value, int quantity) {
-        this.investments.put(name, new Investment(name, value, quantity));
-        notifyObservers(value * quantity);
+        if (!investments.containsKey(name)) {
+            this.investments.put(name, new Investment(name, value, quantity));
+            notifyObservers(value * quantity);
+        }
     }
 
     // REQUIRES: investmentName must already be an existing investment
     // MODIFIES: this
     // EFFECTS: removes/sells an investment from the account.
-    public void sell(String investmentName) {
-        notifyObservers(-(investments.get(investmentName).holdings()));
-        this.investments.remove(investmentName);
+    public void sell(String investmentName, int quantity) {
+        Investment tempInvestment = this.investments.get(investmentName);
+        if ((tempInvestment.getQuantity() - quantity) > 0) {
+            notifyObservers(-(investments.get(investmentName).getIndividualValue() * quantity));
+            tempInvestment.sell(quantity);
+        } else if ((tempInvestment.getQuantity() - quantity) <= 0) {
+            notifyObservers(-(investments.get(investmentName).holdings()));
+            this.investments.remove(investmentName);
+        }
     }
 
     // EFFECTS: calculates taxes based on holdings
