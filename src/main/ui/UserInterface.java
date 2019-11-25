@@ -31,7 +31,6 @@ public class UserInterface implements Runnable {
     private JTextArea printArea;
 
     private JButton printBudgetListBtn;
-    private JButton printBudgetHierarchyBtn;
     private JButton investmentMenuBtn;
     private JButton quitBtn;
 
@@ -49,8 +48,8 @@ public class UserInterface implements Runnable {
 
         this.ui = new UserInterfaceLogic(budgetNameOneInput, maxPerMonthInput, createBudgetBtn,
                 budgetNameTwoInput, itemNameInput, priceInput, addExpenseBtn, removeExpenseBtn,
-                printArea, budgetNameThreeInput, printExpensesBtn, printBudgetListBtn, printBudgetHierarchyBtn,
-                investmentMenuBtn, quitBtn, frame);
+                printArea, budgetNameThreeInput, printExpensesBtn, printBudgetListBtn, investmentMenuBtn,
+                quitBtn, frame);
 
         setActionListeners();
         frame.pack();
@@ -72,6 +71,7 @@ public class UserInterface implements Runnable {
         panel.add(createLeftInputs());
         printArea = new JTextArea();
         printArea.setEditable(false);
+        printArea.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         panel.add(printArea);
         return panel;
     }
@@ -135,11 +135,9 @@ public class UserInterface implements Runnable {
     public JPanel createBottomButtons() {
         JPanel panel = new JPanel(new GridLayout());
         printBudgetListBtn = new JButton("Print Budget List");
-        printBudgetHierarchyBtn = new JButton("Print Budget Hierarchy");
         investmentMenuBtn = new JButton("Investment Menu");
         quitBtn = new JButton("Quit");
         panel.add(printBudgetListBtn);
-        panel.add(printBudgetHierarchyBtn);
         panel.add(investmentMenuBtn);
         panel.add(quitBtn);
         return panel;
@@ -151,7 +149,6 @@ public class UserInterface implements Runnable {
         removeExpenseBtn.addActionListener(ui);
         printExpensesBtn.addActionListener(ui);
         printBudgetListBtn.addActionListener(ui);
-        printBudgetHierarchyBtn.addActionListener(ui);
         investmentMenuBtn.addActionListener(ui);
         quitBtn.addActionListener(ui);
     }

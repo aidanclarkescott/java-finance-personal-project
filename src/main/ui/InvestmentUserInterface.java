@@ -61,6 +61,7 @@ public class InvestmentUserInterface {
         panel.add(createLeftInputs());
         printArea = new JTextArea();
         printArea.setEditable(false);
+        printArea.setBorder(BorderFactory.createLineBorder(new Color(0,0,0)));
         panel.add(printArea);
         return panel;
     }

@@ -1,11 +1,14 @@
 package tests;
 
+import investments.DuplicateInvestmentException;
 import investments.Tfsa;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TfsaTest {
     private Tfsa tfsa;
@@ -29,20 +32,20 @@ public class TfsaTest {
     }
 
     @Test
-    public void testHoldingsOneInvestment() {
+    public void testHoldingsOneInvestment() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment", 100, 5);
         Assertions.assertEquals(100 * 5, tfsa.holdings());
     }
 
     @Test
-    public void testHoldingsTwoInvestments() {
+    public void testHoldingsTwoInvestments() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment", 100, 5);
         tfsa.buy("Test Investment 2", 50, 5);
         Assertions.assertEquals(100 * 5 + 50 * 5, tfsa.holdings());
     }
 
     @Test
-    public void testBuyMore() {
+    public void testBuyMore() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment", 100, 1);
         Assertions.assertEquals(1, tfsa.getInvestments().get("Test Investment").getQuantity());
         Assertions.assertEquals(100, tfsa.holdings());
@@ -52,7 +55,7 @@ public class TfsaTest {
     }
 
     @Test
-    public void testBuyOneInvestment() {
+    public void testBuyOneInvestment() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment", 100, 5);
         Assertions.assertEquals(100 * 5, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment"));
@@ -60,7 +63,7 @@ public class TfsaTest {
     }
 
     @Test
-    public void testBuyTwoInvestments() {
+    public void testBuyTwoInvestments() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 100, 5);
         tfsa.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, tfsa.holdings());
@@ -71,7 +74,22 @@ public class TfsaTest {
     }
 
     @Test
-    public void testSellOneInvestment() {
+    public void testBuyDuplicateException() {
+        try {
+            tfsa.buy("Test Investment 1", 100, 5);
+        } catch (DuplicateInvestmentException e) {
+            fail();
+        }
+        try {
+            tfsa.buy("Test Investment 1", 100, 5);
+            fail();
+        } catch (DuplicateInvestmentException e) {
+
+        }
+    }
+
+    @Test
+    public void testSellOneInvestment() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(100 * 5, tfsa.holdings());
         Assertions.assertTrue(tfsa.getInvestments().containsKey("Test Investment 1"));
@@ -81,7 +99,7 @@ public class TfsaTest {
     }
 
     @Test
-    public void testSellTwoInvestments() {
+    public void testSellTwoInvestments() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 100, 5);
         tfsa.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, tfsa.holdings());
@@ -95,7 +113,7 @@ public class TfsaTest {
     }
 
     @Test
-    public void testSellOneOfTwoInvestments() {
+    public void testSellOneOfTwoInvestments() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 100, 5);
         tfsa.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, tfsa.holdings());
@@ -108,13 +126,13 @@ public class TfsaTest {
     }
 
     @Test
-    public void testCalculateTaxes() {
+    public void testCalculateTaxes() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(0, tfsa.calculateTaxes());
     }
 
     @Test
-    public void testCalculateTaxesLargeSum() {
+    public void testCalculateTaxesLargeSum() throws DuplicateInvestmentException {
         tfsa.buy("Test Investment 1", 50000, 5);
         Assertions.assertEquals(0, tfsa.calculateTaxes());
     }

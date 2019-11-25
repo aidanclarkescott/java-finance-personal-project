@@ -35,4 +35,10 @@ public class InvestmentTest {
         Assertions.assertEquals("TestInvestment, Individual Value: 50.0, Your Holdings: 250.0", investment.toString());
     }
 
+    @Test
+    public void testSell() {
+        investment.sell(2);
+        Assertions.assertEquals(3, investment.getQuantity());
+    }
+
 }

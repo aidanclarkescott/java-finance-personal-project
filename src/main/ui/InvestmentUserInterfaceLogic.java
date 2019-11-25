@@ -1,5 +1,6 @@
 package ui;
 
+import investments.DuplicateInvestmentException;
 import investments.Investment;
 import investments.Portfolio;
 import network.StockData;
@@ -7,6 +8,7 @@ import network.StockData;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class InvestmentUserInterfaceLogic implements ActionListener {
@@ -113,8 +115,14 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
             double value = stockData.formatApiQuery(stockCode);
             int quantity = Integer.parseInt(quantityInput);
             portfolio.buy(accountInput, stockCode, value, quantity);
-        } catch (NullPointerException e) {
+            printArea.setText("You have bought " + quantityInput + " " + stockCode + " stock.");
+        } catch (NullPointerException | IOException e) {
             printArea.setText("That stock code doesn't exist.");
+        } catch (DuplicateInvestmentException e) {
+            printArea.setText("You already own that investment, choose \n"
+                    + " \"Buy Existing Investment\" to purchase more.");
+        } catch (NumberFormatException e) {
+            printArea.setText("Please enter a valid stock code and quantity.");
         }
     }
 
@@ -122,8 +130,11 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         try {
             int quantity = Integer.parseInt(quantityInput);
             portfolio.buyMore(accountInput, stockCode, quantity);
+            printArea.setText("You have bought " + quantityInput + " more " + stockCode + " stock.");
         } catch (NullPointerException e) {
             printArea.setText("You don't own that investment.");
+        } catch (NumberFormatException e) {
+            printArea.setText("Please enter a valid stock code and quantity.");
         }
     }
 
@@ -133,8 +144,11 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
             String investmentName = investmentCodeInput.getText();
             int quantity = Integer.parseInt(quantityInput.getText());
             portfolio.sell(account, investmentName, quantity);
+            printArea.setText("You have sold " + quantity + " " + investmentName +  " stock.");
         } catch (NullPointerException e) {
             printArea.setText("You don't own that investment.");
+        } catch (NumberFormatException e) {
+            printArea.setText("Please enter a valid stock code and quantity.");
         }
     }
 
@@ -192,10 +206,19 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         String account = investmentAccountScanner();
         System.out.print("Name of investment: ");
         String name = reader.nextLine();
-        double value = stockData.formatApiQuery(name);
+        double value = 0;
+        try {
+            value = stockData.formatApiQuery(name);
+        } catch (IOException e) {
+            System.out.println("That stock code doesn't exist.");
+        }
         System.out.print("Quantity to purchase: ");
         int quantity = Integer.parseInt(reader.nextLine());
-        portfolio.buy(account, name, value, quantity);
+        try {
+            portfolio.buy(account, name, value, quantity);
+        } catch (DuplicateInvestmentException e) {
+            System.out.println("You already own that investment.");
+        }
         System.out.println("");
     }
 

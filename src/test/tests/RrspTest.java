@@ -1,11 +1,14 @@
 package tests;
 
+import investments.DuplicateInvestmentException;
 import investments.Rrsp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class RrspTest {
     private Rrsp rrsp;
@@ -29,20 +32,20 @@ public class RrspTest {
     }
 
     @Test
-    public void testHoldingsOneInvestment() {
+    public void testHoldingsOneInvestment() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment", 100, 5);
         Assertions.assertEquals(100 * 5, rrsp.holdings());
     }
 
     @Test
-    public void testHoldingsTwoInvestments() {
+    public void testHoldingsTwoInvestments() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment", 100, 5);
         rrsp.buy("Test Investment 2", 50, 5);
         Assertions.assertEquals(100 * 5 + 50 * 5, rrsp.holdings());
     }
 
     @Test
-    public void testBuyMore() {
+    public void testBuyMore() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment", 100, 1);
         Assertions.assertEquals(1, rrsp.getInvestments().get("Test Investment").getQuantity());
         Assertions.assertEquals(100, rrsp.holdings());
@@ -52,7 +55,7 @@ public class RrspTest {
     }
 
     @Test
-    public void testBuyOneInvestment() {
+    public void testBuyOneInvestment() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment", 100, 5);
         Assertions.assertEquals(100 * 5, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment"));
@@ -60,7 +63,7 @@ public class RrspTest {
     }
 
     @Test
-    public void testBuyTwoInvestments() {
+    public void testBuyTwoInvestments() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment 1", 100, 5);
         rrsp.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, rrsp.holdings());
@@ -71,7 +74,22 @@ public class RrspTest {
     }
 
     @Test
-    public void testSellOneInvestment() {
+    public void testBuyDuplicateException() {
+        try {
+            rrsp.buy("Test Investment 1", 100, 5);
+        } catch (DuplicateInvestmentException e) {
+            fail();
+        }
+        try {
+            rrsp.buy("Test Investment 1", 100, 5);
+            fail();
+        } catch (DuplicateInvestmentException e) {
+
+        }
+    }
+
+    @Test
+    public void testSellOneInvestment() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment 1", 100, 5);
         Assertions.assertEquals(100 * 5, rrsp.holdings());
         Assertions.assertTrue(rrsp.getInvestments().containsKey("Test Investment 1"));
@@ -81,7 +99,7 @@ public class RrspTest {
     }
 
     @Test
-    public void testSellTwoInvestments() {
+    public void testSellTwoInvestments() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment 1", 100, 5);
         rrsp.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, rrsp.holdings());
@@ -95,7 +113,7 @@ public class RrspTest {
     }
 
     @Test
-    public void testSellOneOfTwoInvestments() {
+    public void testSellOneOfTwoInvestments() throws DuplicateInvestmentException {
         rrsp.buy("Test Investment 1", 100, 5);
         rrsp.buy("Test Investment 2", 50, 2);
         Assertions.assertEquals(100 * 5 + 50 * 2, rrsp.holdings());

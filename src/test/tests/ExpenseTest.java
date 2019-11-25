@@ -65,4 +65,16 @@ public class ExpenseTest {
     public void testHashCode() {
         Assertions.assertEquals(Objects.hash("Test Name"), expense.hashCode());
     }
+
+    @Test
+    public void testHasBudget() {
+        Budget budget = new Budget("Test", 500);
+        expense.setBudget(budget);
+        Assertions.assertTrue(expense.hasBudget());
+    }
+
+    @Test
+    public void testHasBudgetNull() {
+        Assertions.assertFalse(expense.hasBudget());
+    }
 }

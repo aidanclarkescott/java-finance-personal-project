@@ -31,7 +31,6 @@ public class UserInterfaceLogic implements ActionListener {
     private JTextArea printArea;
 
     private JButton printBudgetListBtn;
-    private JButton printBudgetHierarchyBtn;
     private JButton investmentMenuBtn;
     private JButton quitBtn;
 
@@ -49,8 +48,7 @@ public class UserInterfaceLogic implements ActionListener {
                               JTextField budgetNameTwoInput, JTextField itemNameInput, JTextField priceInput,
                               JButton addExpenseBtn, JButton removeExpenseBtn, JTextArea printArea,
                               JTextField budgetNameThreeInput, JButton printExpensesBtn, JButton printBudgetListBtn,
-                              JButton printBudgetHierarchyBtn, JButton investmentMenuBtn, JButton quitBtn,
-                              JFrame frame) {
+                              JButton investmentMenuBtn, JButton quitBtn, JFrame frame) {
         this.budget = new BudgetUserInterfaceLogic();
         budget.load();
         this.budgetNameOneInput = budgetNameOneInput;
@@ -65,7 +63,6 @@ public class UserInterfaceLogic implements ActionListener {
         this.printExpensesBtn = printExpensesBtn;
         this.printArea = printArea;
         this.printBudgetListBtn = printBudgetListBtn;
-        this.printBudgetHierarchyBtn = printBudgetHierarchyBtn;
         this.investmentMenuBtn = investmentMenuBtn;
         this.quitBtn = quitBtn;
         this.userInterfaceJFrame = frame;
@@ -91,7 +88,7 @@ public class UserInterfaceLogic implements ActionListener {
                 actionPerformedContinued(e);
             }
         } catch (NumberFormatException ex) {
-            printArea.setText("Those fields cannot be empty.");
+            printArea.setText("Those fields cannot be empty or invalid.");
         }
     }
 
@@ -100,8 +97,6 @@ public class UserInterfaceLogic implements ActionListener {
             printExpensesUI();
         } else if (e.getSource() == printBudgetListBtn) {
             printBudgetListUI();
-        } else if (e.getSource() == printBudgetHierarchyBtn) {
-            System.out.println("Not implemented yet.");
         }
     }
 

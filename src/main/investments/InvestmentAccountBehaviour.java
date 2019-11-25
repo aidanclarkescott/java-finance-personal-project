@@ -6,7 +6,7 @@ public interface InvestmentAccountBehaviour {
 
     void buyMore(String investmentName, int quantity);
 
-    void buy(String name, double value, int quantity);
+    void buy(String name, double value, int quantity) throws DuplicateInvestmentException;
 
     void sell(String investmentName, int quantity);
 

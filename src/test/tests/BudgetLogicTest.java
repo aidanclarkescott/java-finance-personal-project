@@ -200,6 +200,16 @@ public class BudgetLogicTest {
     }
 
     @Test
+    public void testRemoveExpenseNoBudget() {
+        try {
+            budget.removeExpense("SomeBudget", "Item Name", 50);
+            fail();
+        } catch (NoBudgetException | NonexistentItemException e) {
+
+        }
+    }
+
+    @Test
     public void testSaveBudgetsOneExpense() throws TooExpensiveException {
         try {
             budget.createBudget("TestBudget", 500);

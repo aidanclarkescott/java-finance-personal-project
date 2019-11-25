@@ -43,9 +43,6 @@ public class Investment implements GeneralInvestment {
     // EFFECTS: sells a given quantity of the investment.
     public void sell(int amount) {
         this.quantity -= amount;
-        if (quantity <= 0) {
-            quantity = 0;
-        }
     }
 
     // EFFECTS: outlines formatting for printing an investment.

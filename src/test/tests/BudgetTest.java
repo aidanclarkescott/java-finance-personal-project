@@ -146,6 +146,17 @@ public class BudgetTest {
     }
 
     @Test
+    public void testRemoveExpenseThrowException() {
+        Expense expense = new Expense("E", 50);
+        try {
+            budget.removeExpense(expense);
+            fail();
+        } catch (NonexistentItemException e) {
+            Assertions.assertEquals(0, budget.getExpenseList().size());
+        }
+    }
+
+    @Test
     public void testSaveExpensesOneExpense() throws IOException, TooExpensiveException, DuplicateItemException {
         try {
             budgetLogic.createBudget("TestBudget", 500);

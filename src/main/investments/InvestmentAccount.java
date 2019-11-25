@@ -32,10 +32,12 @@ public abstract class InvestmentAccount extends Subject implements GeneralInvest
     // REQUIRES: quantity cannot be negative
     // MODIFIES: this
     // EFFECTS: creates a new investment and places it in the account.
-    public void buy(String name, double value, int quantity) {
+    public void buy(String name, double value, int quantity) throws DuplicateInvestmentException {
         if (!investments.containsKey(name)) {
             this.investments.put(name, new Investment(name, value, quantity));
             notifyObservers(value * quantity);
+        } else {
+            throw new DuplicateInvestmentException();
         }
     }
 

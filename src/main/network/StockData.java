@@ -9,16 +9,10 @@ import java.net.URL;
 
 public class StockData {
 
-    public double formatApiQuery(String stockCode) {
+    public double formatApiQuery(String stockCode) throws IOException {
         String query = "https://financialmodelingprep.com/api/v3/stock/real-time-price/" + stockCode;
-
-        try {
-            String jsonFile = readUrl(query);
-            return parseJsonData(jsonFile);
-        } catch (IOException e) {
-            System.out.println("IOException");
-        }
-        return 0;
+        String jsonFile = readUrl(query);
+        return parseJsonData(jsonFile);
     }
 
     public double parseJsonData(String query) {

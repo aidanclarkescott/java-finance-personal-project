@@ -42,7 +42,7 @@ public class Portfolio implements GeneralInvestment, Observer {
     }
 
     // EFFECTS: calls the appropriate method to buy new stocks in different accounts.
-    public void buy(String account, String name, double value, int quantity) {
+    public void buy(String account, String name, double value, int quantity) throws DuplicateInvestmentException {
         if (account.equals("1")) {
             this.nonRegistered.buy(name, value, quantity);
         } else if (account.equals("2")) {

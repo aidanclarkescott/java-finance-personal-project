@@ -23,7 +23,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testConstructorDuplicateObserver() {
+    public void testConstructorDuplicateObserver() throws DuplicateInvestmentException {
         InvestmentAccount rrsp = portfolio.getRrsp();
         Portfolio port2 = this.portfolio;
         rrsp.addObserver(port2);
@@ -32,7 +32,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testHoldings() {
+    public void testHoldings() throws DuplicateInvestmentException {
         portfolio.buy("1", "TestInvestment", 50, 5);
         portfolio.buy("2", "TestInvestment2", 50, 5);
         portfolio.buy("3", "TestInvestment3", 50, 5);
@@ -40,28 +40,28 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyNonRegisteredOneInvestment() {
+    public void testBuyNonRegisteredOneInvestment() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment", 50, 2);
         Assertions.assertEquals(50 * 2, portfolio.holdings());
         Assertions.assertTrue(portfolio.getNonRegistered().getInvestments().containsKey("Test Investment"));
     }
 
     @Test
-    public void testBuyTfsaOneInvestment() {
+    public void testBuyTfsaOneInvestment() throws DuplicateInvestmentException {
         portfolio.buy("2", "Test Investment", 50, 2);
         Assertions.assertEquals(50 * 2, portfolio.holdings());
         Assertions.assertTrue(portfolio.getTfsa().getInvestments().containsKey("Test Investment"));
     }
 
     @Test
-    public void testBuyRrspOneInvestment() {
+    public void testBuyRrspOneInvestment() throws DuplicateInvestmentException {
         portfolio.buy("3", "Test Investment", 50, 2);
         Assertions.assertEquals(50 * 2, portfolio.holdings());
         Assertions.assertTrue(portfolio.getRrsp().getInvestments().containsKey("Test Investment"));
     }
 
     @Test
-    public void testBuyNonRegisteredTwoInvestments() {
+    public void testBuyNonRegisteredTwoInvestments() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment 1", 50, 2);
         portfolio.buy("1", "Test Investment 2", 100, 1);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
@@ -70,7 +70,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyTfsaTwoInvestments() {
+    public void testBuyTfsaTwoInvestments() throws DuplicateInvestmentException {
         portfolio.buy("2", "Test Investment 1", 50, 2);
         portfolio.buy("2", "Test Investment 2", 100, 1);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
@@ -79,7 +79,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyRrspTwoInvestments() {
+    public void testBuyRrspTwoInvestments() throws DuplicateInvestmentException {
         portfolio.buy("3", "Test Investment 1", 50, 2);
         portfolio.buy("3", "Test Investment 2", 100, 1);
         Assertions.assertEquals(100 + 100, portfolio.holdings());
@@ -88,7 +88,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellNonRegistered() {
+    public void testSellNonRegistered() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment", 50, 2);
         portfolio.sell("1", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
@@ -96,7 +96,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellTfsa() {
+    public void testSellTfsa() throws DuplicateInvestmentException {
         portfolio.buy("2", "Test Investment", 50, 2);
         portfolio.sell("2", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
@@ -104,7 +104,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellRrsp() {
+    public void testSellRrsp() throws DuplicateInvestmentException {
         portfolio.buy("3", "Test Investment", 50, 2);
         portfolio.sell("3", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
@@ -112,14 +112,14 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testSellOptionFour() {
+    public void testSellOptionFour() throws DuplicateInvestmentException {
         portfolio.buy("4", "Test Investment", 50, 2);
         portfolio.sell("4", "Test Investment", 2);
         Assertions.assertEquals(0, portfolio.holdings());
     }
 
     @Test
-    public void testBuyMoreNonRegistered() {
+    public void testBuyMoreNonRegistered() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment", 50, 2);
         Assertions.assertEquals(100, portfolio.holdings());
         portfolio.buyMore("1", "Test Investment", 2);
@@ -128,7 +128,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyMoreTfsa() {
+    public void testBuyMoreTfsa() throws DuplicateInvestmentException {
         portfolio.buy("2", "Test Investment", 50, 2);
         Assertions.assertEquals(100, portfolio.holdings());
         portfolio.buyMore("2", "Test Investment", 2);
@@ -137,7 +137,7 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testBuyMoreRrsp() {
+    public void testBuyMoreRrsp() throws DuplicateInvestmentException {
         portfolio.buy("3", "Test Investment", 50, 2);
         Assertions.assertEquals(100, portfolio.holdings());
         portfolio.buyMore("3", "Test Investment", 2);
@@ -152,25 +152,25 @@ public class PortfolioTest {
     }
 
     @Test
-    public void testCalculateTaxesWrongInput() {
+    public void testCalculateTaxesWrongInput() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment", 50, 2);
         Assertions.assertEquals(0, portfolio.calculateTaxes("5"));
     }
 
     @Test
-    public void testCalculateTaxesNonRegistered() {
+    public void testCalculateTaxesNonRegistered() throws DuplicateInvestmentException {
         portfolio.buy("1", "Test Investment", 50, 2);
         Assertions.assertEquals(portfolio.getNonRegistered().holdings() * 0.15, portfolio.calculateTaxes("1"));
     }
 
     @Test
-    public void testCalculateTaxesTfsa() {
+    public void testCalculateTaxesTfsa() throws DuplicateInvestmentException {
         portfolio.buy("2", "Test Investment", 50, 2);
         Assertions.assertEquals(0, portfolio.calculateTaxes("2"));
     }
 
     @Test
-    public void testCalculateTaxesRrsp() {
+    public void testCalculateTaxesRrsp() throws DuplicateInvestmentException {
         portfolio.buy("3", "Test Investment", 50, 2);
         Assertions.assertEquals(portfolio.getRrsp().holdings() * 0.15, portfolio.calculateTaxes("3"));
     }
