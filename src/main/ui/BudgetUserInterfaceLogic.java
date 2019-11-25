@@ -16,6 +16,8 @@ public class BudgetUserInterfaceLogic {
         this.budget = new BudgetLogic();
     }
 
+    // MODIFIES: budget
+    // EFFECTS: loads one budget and all its expenses into the system.
     public void load() {
         try {
             budget.load("/Users/aidan/IdeaProjects/Personal_Project/data/savefile.txt");
@@ -30,27 +32,29 @@ public class BudgetUserInterfaceLogic {
         }
     }
 
+    // MODIFIES: budget
+    // EFFECTS: creates a budget based on given inputs.
     public void createBudgetUIInput(String budgetNameInput, String budgetCapInput) throws DuplicateBudgetException {
         String budgetName = budgetNameInput;
         double budgetCap = Double.parseDouble(budgetCapInput);
-        //Boolean isNested = nestedBudgetInput();
         budget.createBudget(budgetName, budgetCap);
-//            if (isNested) {
-//                String budgetNestedWithin = whichBudgetScanner();
-//                budget.addNestedBudget(budgetName, budgetNestedWithin);
-//            }
     }
 
+    // MODIFIES: budget
+    // EFFECTS: adds an expense to a given budget.
     public void addExpenseUI(String budgetName, String name, double price) throws NoBudgetException,
             TooExpensiveException, DuplicateItemException {
         budget.addExpense(budgetName, name, price);
     }
 
+    // MODIFIES: budget
+    // EFFECTS: removes an expense from a given budget.
     public void removeExpenseUI(String budgetName, String expenseName, double price) throws NoBudgetException,
             NonexistentItemException {
         budget.removeExpense(budgetName, expenseName, price);
     }
 
+    // EFFECTS: formats all budgets into specific strings and adds them to a list
     public ArrayList<String> formatBudgetPrinting() {
         ArrayList<String> budgetList = new ArrayList<>();
         int i = 0;
@@ -63,6 +67,7 @@ public class BudgetUserInterfaceLogic {
         return budgetList;
     }
 
+    // EFFECTS: formats all expenses in a given budget and adds them to a list.
     public ArrayList<String> printExpensesUI(String budgetName) throws NoBudgetException {
         ArrayList<String> expenseList = new ArrayList<>();
         if (this.budget.getBudgets().get(budgetName) == null) {
@@ -102,6 +107,7 @@ public class BudgetUserInterfaceLogic {
         System.out.println("");
     }
 
+    // EFFECTS: takes in user input to decide weather a budget will be nested or not
     public Boolean nestedBudgetInput() {
         System.out.println("Do you want to put this budget in an existing budget? (Yes/No)");
         String isNested = reader.nextLine();
@@ -111,6 +117,7 @@ public class BudgetUserInterfaceLogic {
         return false;
     }
 
+    // EFFECTS: displays the budget heirarchy of the given budget.
     public void displayInput() {
         String tempBudget = whichBudgetScanner();
         budget.display(tempBudget);

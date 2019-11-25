@@ -63,6 +63,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         this.stockData = new StockData();
     }
 
+    // MODIFIES: investmentUserInterfaceFrame, userInterfaceJFrame
+    // EFFECTS: performs appropriate actions depending on what button is pressed.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == returnBtn) {
@@ -81,6 +83,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: investmentUserInterfaceFrame, userInterfaceJFrame
+    // EFFECTS: performs appropriate actions depending on what button is pressed continued.
     public void printInvestmentSummaryUI() {
         printArea.setText("");
         printArea.append("Non-Registered: \n");
@@ -97,6 +101,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: portfolio
+    // EFFECTS: chooses the appropriate buy method based on what option is checked
     public void buyInvestmentUI() {
         String account = accountToNumConverter((String) whichAccountBox.getSelectedItem());
         String investmentCode = investmentCodeInput.getText();
@@ -110,6 +116,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: portfolio
+    // EFFECTS: buys a new investment in the given account
     public void buyNewInputUI(String accountInput, String stockCode, String quantityInput) {
         try {
             double value = stockData.formatApiQuery(stockCode);
@@ -126,6 +134,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: portfolio
+    // EFFECTS: buys more of an existing given investment.
     public void buyExistingInputUI(String accountInput, String stockCode, String quantityInput) {
         try {
             int quantity = Integer.parseInt(quantityInput);
@@ -138,6 +148,8 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: portfolio
+    // EFFECTS: sells a given quantity of a given investment.
     public void sellInvestmentUI() {
         try {
             String account = accountToNumConverter((String) whichAccountBox.getSelectedItem());
@@ -152,6 +164,7 @@ public class InvestmentUserInterfaceLogic implements ActionListener {
         }
     }
 
+    // EFFECTS: converts a string form of an investment to a number form which is recognized by other methods.
     public String accountToNumConverter(String account) {
         if (account.equals("Non-Registered")) {
             return "1";

@@ -16,6 +16,7 @@ public class Expense extends BudgetComponent {
         this.budget = null;
     }
 
+    // EFFECTS: prints out information in heirarchy for expense.
     public void display(int indent) {
         printIndent(indent);
         System.out.println("Expense: " + name + ",  " + price);

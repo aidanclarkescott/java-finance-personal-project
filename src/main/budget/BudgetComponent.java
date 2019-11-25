@@ -12,6 +12,7 @@ public abstract class BudgetComponent {
 
     public abstract void display(int indent);
 
+    // EFFECTS: prints indent
     protected void printIndent(int indent) {
         budgetComponentUI.printIndent(indent);
     }

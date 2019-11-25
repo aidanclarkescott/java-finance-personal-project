@@ -20,10 +20,13 @@ public class Budget extends BudgetComponent {
         this.budgetComponents = new ArrayList<>();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a budget component to the budget component list for composite pattern.
     public void addBudgetComponent(BudgetComponent b) {
         this.budgetComponents.add(b);
     }
 
+    // EFFECTS: prints out budget hierarchy.
     public void display(int indent) {
         printIndent(indent);
         System.out.println("Budget: " + name);
@@ -96,6 +99,7 @@ public class Budget extends BudgetComponent {
         return this.expenses;
     }
 
+    // EFFECTS: returns budget components.
     public List<BudgetComponent> getBudgetComponents() {
         return this.budgetComponents;
     }

@@ -1,4 +1,0 @@
-TestBudget
-500.0
-TestExpense1
-50.0

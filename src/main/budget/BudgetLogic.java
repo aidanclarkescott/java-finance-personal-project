@@ -14,7 +14,6 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         this.budgets = new HashMap<>();
     }
 
-    // TODO: add tests for exception
     // MODIFIES: this
     // EFFECTS: loads a budget and all of its expenses from a save file
     @Override
@@ -43,11 +42,14 @@ public class BudgetLogic implements BudgetLogicBehaviour {
         this.budgets.put(budgetName, tempBudget);
     }
 
+    // MODIFIES: budgets
+    // EFFECTS: adds a budget to another budgets list of budgets.
     public void addNestedBudget(String budgetName, String budgetNestedWithin) {
         Budget tempBudget = this.budgets.get(budgetName);
         this.budgets.get(budgetNestedWithin).addBudgetComponent(tempBudget);
     }
 
+    // EFFECTS: calls display on a given budget.
     public void display(String budgetName) {
         this.budgets.get(budgetName).display(0);
     }

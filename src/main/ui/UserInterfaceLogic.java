@@ -69,6 +69,8 @@ public class UserInterfaceLogic implements ActionListener {
         investmentUserInterface = new InvestmentUserInterface();
     }
 
+    // MODIFIES: this, userInterfaceJFrame, investmentUserInterface
+    // EFFECTS: performs appropriate actions depending on what button is pressed.
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -92,6 +94,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: this, userInterfaceJFrame
+    // EFFECTS: performs appropriate actions depending on what button is pressed continued.
     public void actionPerformedContinued(ActionEvent e) {
         if (e.getSource() == printExpensesBtn) {
             printExpensesUI();
@@ -100,6 +104,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: budget
+    // EFFECTS: creates budget based on given inputs.
     public void createBudgetUI() {
         String name = budgetNameOneInput.getText();
         String monthlyMax = maxPerMonthInput.getText();
@@ -111,6 +117,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: budget, userInterfaceJFrame
+    // EFFECTS: adds expense to given budget based on given inputs.
     public void addExpenseUI() {
         String budgetName = budgetNameTwoInput.getText();
         String itemName = itemNameInput.getText();
@@ -127,6 +135,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: budget, userInterfaceJFrame
+    // EFFECTS: removes an expense from the given budget.
     public void removeExpenseUI() {
         String budgetName = budgetNameTwoInput.getText();
         String itemName = itemNameInput.getText();
@@ -141,6 +151,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: userInterfaceJFrame
+    // EFFECTS: prints expenses of a given budget to the printArea
     public void printExpensesUI() {
         try {
             printArea.setText("");
@@ -152,6 +164,8 @@ public class UserInterfaceLogic implements ActionListener {
         }
     }
 
+    // MODIFIES: userInterfaceJFrame
+    // EFFECTS: prints all budgets to the printArea
     public void printBudgetListUI() {
         ArrayList<String> budgetList = budget.formatBudgetPrinting();
         printArea.setText("");

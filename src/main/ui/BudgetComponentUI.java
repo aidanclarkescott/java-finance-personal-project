@@ -3,6 +3,7 @@ package ui;
 public class BudgetComponentUI {
     private static final String INDENT = "   ";
 
+    // EFFECTS: prints out an indentation based on the given size
     public void printIndent(int indent) {
         String indentation = "";
 

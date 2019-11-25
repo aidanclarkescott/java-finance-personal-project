@@ -9,12 +9,14 @@ import java.net.URL;
 
 public class StockData {
 
+    // EFFECTS: gets stock data from api website based on given stock code and returns price data
     public double formatApiQuery(String stockCode) throws IOException {
         String query = "https://financialmodelingprep.com/api/v3/stock/real-time-price/" + stockCode;
         String jsonFile = readUrl(query);
         return parseJsonData(jsonFile);
     }
 
+    // EFFECTS: takes in JSON file and extracts price from it.
     public double parseJsonData(String query) {
         JSONParser parser = new JSONParser();
 
@@ -34,6 +36,7 @@ public class StockData {
         return 0;
     }
 
+    // EFFECTS: reads text from api query and formats it into one string.
     private String readUrl(String urlString) throws IOException {
         BufferedReader br = null;
         try {

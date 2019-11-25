@@ -47,6 +47,7 @@ public class Investment implements GeneralInvestment {
 
     // EFFECTS: outlines formatting for printing an investment.
     public String toString() {
-        return getName() + ", Individual Value: " + getIndividualValue() + ", Your Holdings: " + holdings();
+        return getName() + ", Individual Value: " + getIndividualValue() + ", Your Holdings: "
+                + Math.round(((holdings() * 100) / 100));
     }
 }
