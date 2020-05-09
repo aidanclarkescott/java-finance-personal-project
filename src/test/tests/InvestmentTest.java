@@ -32,7 +32,7 @@ public class InvestmentTest {
 
     @Test
     public void testToString() {
-        Assertions.assertEquals("TestInvestment, Individual Value: 50.0, Your Holdings: 250.0", investment.toString());
+        Assertions.assertEquals("TestInvestment, Individual Value: 50.0, Your Holdings: 250", investment.toString());
     }
 
     @Test

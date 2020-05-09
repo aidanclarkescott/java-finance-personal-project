@@ -67,6 +67,7 @@ public class UserInterfaceLogic implements ActionListener {
         this.quitBtn = quitBtn;
         this.userInterfaceJFrame = frame;
         investmentUserInterface = new InvestmentUserInterface();
+        investmentUserInterface.run(userInterfaceJFrame);
     }
 
     // MODIFIES: this, userInterfaceJFrame, investmentUserInterface
@@ -79,7 +80,7 @@ public class UserInterfaceLogic implements ActionListener {
                 System.exit(0);
             } else if (e.getSource() == investmentMenuBtn) {
                 userInterfaceJFrame.setVisible(false);
-                investmentUserInterface.run(userInterfaceJFrame);
+                investmentUserInterface.setVisible();
             } else if (e.getSource() == createBudgetBtn) {
                 createBudgetUI();
             } else if (e.getSource() == addExpenseBtn) {

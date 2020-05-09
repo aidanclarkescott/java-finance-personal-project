@@ -46,6 +46,12 @@ public class InvestmentUserInterface {
         setActionListeners();
         frame.pack();
         frame.setResizable(false);
+        frame.setVisible(false);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets frame visible
+    public void setVisible() {
         frame.setVisible(true);
     }
 

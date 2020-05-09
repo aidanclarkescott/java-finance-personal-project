@@ -61,6 +61,7 @@ public class Budget extends BudgetComponent {
             this.expenses.add(expense);
             expense.setBudget(this);
         }
+
     }
 
     // MODIFIES: this
